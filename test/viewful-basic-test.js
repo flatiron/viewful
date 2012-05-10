@@ -1,5 +1,6 @@
 var assert = require('assert'),
     vows = require('vows'),
+    helpers = require('./helpers'),
     viewful = require('../lib/viewful');
 
 vows.describe('viewful').addBatch({
@@ -41,23 +42,8 @@ vows.describe('viewful').addBatch({
       'should contain default "output"': function (_view) {
         assert.equal("html", _view.output);
       },
-      'and calling View.render()': {
-        topic: function(_view){
-          this.callback(null, _view.render());
-        },
-        'should return an empty template' : function (err, result) {
-          assert.equal(result, "");
-        }
-      },
-      'and calling View.render(["p", user.name])': {
-        topic: function(_view){
-          var user = { name: "marak" };
-          this.callback(null, _view.render(["p", user.name]));
-        },
-        'should render the template' : function (err, result) {
-          assert.equal(result, "<p>marak</p>");
-        }
-      }
+      'and calling View.render()':                 helpers.render(),
+      'and calling View.render(["p", user.name])': helpers.render(["p", "marak"], null, null, "<p>marak</p>"),
     }
   }
 }).export(module);
