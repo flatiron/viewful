@@ -1,0 +1,13 @@
+{
+  "author": "",
+  "name": "viewful",
+  "version": "0.0.0",
+  "dependencies": {
+    "utile": "0.0.10"
+  },
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}
