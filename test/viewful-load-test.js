@@ -3,9 +3,7 @@ var assert = require('assert'),
     helpers = require('./helpers'),
     viewful = require('../lib/viewful');
 
-var user = { user : { name: "tobi" }};
-
-vows.describe('viewful').addBatch({
+vows.describe('viewful/viewful-load-test').addBatch({
   'When using `viewful`': {
     'a new viewful.View()': {
       topic: new viewful.View(),
@@ -39,21 +37,16 @@ vows.describe('viewful').addBatch({
           _view.load(this.callback);
         },
         'should not error' : function(err, _view){
-          console.log(err, _view);
           assert.isNull(err);
         }
       },
       'viewful.load("/invalid/path/to")' : {
         topic : function(_view){
-          try {
-            var loaded = _view.load("/invalid/path/to");
-            this.callback(null, loaded);
-          } catch (err) {
-            this.callback(err);
-          }
+          var loaded = _view.load("/invalid/path/to");
+          this.callback(loaded);
         },
-        'should error' : function(err, result){
-          assert.isNotNull(err)
+        'should error' : function(result){
+          assert.isNotNull(result)
         }
       },
       'viewful.load("./test/fixtures/views/simple/")' : {

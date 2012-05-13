@@ -5,7 +5,7 @@ var assert = require('assert'),
 
 var user = { user : { name: "tobi" }};
 
-vows.describe('viewful').addBatch({
+vows.describe('viewful-engines-test').addBatch({
   'When using `viewful`': {
     'a new viewful.View({ input: "jade" })': {
       topic: new viewful.View({ input: "jade" }),
@@ -21,7 +21,7 @@ vows.describe('viewful').addBatch({
       'should contain default "output"': function (_view) {
         assert.equal("html", _view.output);
       },
-      'and calling View.render()'                       : helpers.render(undefined, null, null, "<undefined></undefined>"),
+      'and calling View.render()'                       : helpers.render(undefined, null, null, ""),
       'and calling View.render("p= user.name")'         : helpers.render('p= "tobi"', null, null, "<p>tobi</p>"),
       'and calling View.render("p= user.name", user })' : helpers.render('p= user.name', user, null, "<p>tobi</p>")
     }
