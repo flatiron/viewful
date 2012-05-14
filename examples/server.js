@@ -3,7 +3,12 @@ var http        = require('http'),
     viewful     = require('../lib/viewful');
 
 
-var viewfulRouter  = viewful.createRouter(__dirname + '/../test/fixtures/views/simple/');
+var viewfulRouter  = viewful.createRouter({
+  template: __dirname + '/../test/fixtures/views/simple/',
+  input: "html"
+});
+
+//viewfulRouter.input = "html";
 
 //console.log(viewfulRouter)
 
@@ -12,7 +17,7 @@ var server = http.createServer(function (req, res) {
   req.on('data', function (chunk) {
     req.chunks.push(chunk.toString());
   });
-  
+
   //
   // TODO: Nested routers here is not right, should just be formfulRouter
   //       Director.mount seems to not want to work :-(
@@ -21,7 +26,7 @@ var server = http.createServer(function (req, res) {
   viewfulRouter.dispatch(req, res, function (err) {
     if (err) {
       res.writeHead(404);
-      res.end();
+      res.end('not found ' + req.url);
     }
   });
 

@@ -61,8 +61,14 @@ vows.describe('viewful/viewful-load-test').addBatch({
         'should not error' : function(err, result){
           assert.isNull(err)
         },
-        'should return array of templates' : function(err, result){
-          assert.isArray(result)
+        'should return loaded templates' : function(err, result){
+          assert.isObject(result)
+        },
+        'and templates should be valid' : function(err, result){
+          assert.isObject(result['./test/fixtures/views/simple/'])
+          assert.isDefined(result['./test/fixtures/views/simple/']['index.html']);
+          assert.isDefined(result['./test/fixtures/views/simple/']['foo.html']);
+          assert.isDefined(result['./test/fixtures/views/simple/']['bar.html']);
         }
       },
       'viewful.load("./test/fixtures/views/simple/", cb)' : {
@@ -72,8 +78,14 @@ vows.describe('viewful/viewful-load-test').addBatch({
         'should not error' : function(err, result){
           assert.isNull(err)
         },
-        'should return array of templates' : function(err, result){
-          assert.isArray(result)
+        'should return loaded templates' : function(err, result){
+          assert.isObject(result)
+        },
+        'and templates should be valid' : function(err, result){
+          assert.isObject(result['./test/fixtures/views/simple/'])
+          assert.isDefined(result['./test/fixtures/views/simple/']['index.html']);
+          assert.isDefined(result['./test/fixtures/views/simple/']['foo.html']);
+          assert.isDefined(result['./test/fixtures/views/simple/']['bar.html']);
         }
       }
     }

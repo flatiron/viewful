@@ -7,7 +7,7 @@ var user = { user: { name: 'tobi' }};
 //
 // Async
 //
-view.render("p= user.name", user, function(err, html){
+view.compile("p= user.name", user, function(err, html){
   if (err) {
     return console.log(err);
   }
@@ -17,5 +17,5 @@ view.render("p= user.name", user, function(err, html){
 //
 // Sync
 //
-var html = view.render("p= user.name", user)
+var html = view.compile("p= user.name", user)
 console.log('sync', html);

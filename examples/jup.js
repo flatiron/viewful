@@ -7,7 +7,7 @@ var user = { name: 'tobi' };
 //
 // Async
 //
-view.render(["p", user.name], function(err, html){
+view.compile(["p", user.name], function(err, html){
   if (err) {
     return console.log(err);
   }
@@ -17,5 +17,5 @@ view.render(["p", user.name], function(err, html){
 //
 // Sync
 //
-var html = view.render(["p", user.name])
+var html = view.compile(["p", user.name])
 console.log('sync', html);

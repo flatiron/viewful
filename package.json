@@ -9,5 +9,9 @@
   "optionalDependencies": {},
   "engines": {
     "node": "*"
-  }
+  },
+  "scripts": {
+    "test" : "vows --spec"
+  },
+  "main" : "./lib/viewful"
 }
