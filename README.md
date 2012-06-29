@@ -2,6 +2,10 @@
 
 # viewful - Tiny and Isomorphic view engine for Flatiron
 
+# Philosophy
+
+`Viewful` is designed to establish the minimal amount of convention needed to create Isomorphic JavaScript views. It supports *all* templating engines available for JavaScript and is completely pluggable and over-ridable for customization. `Viewful` also includes a very basic <a href="#presenter">Presenter Pattern</a> to help build complex User-Interfaces.
+
 # Installation
 
 ## Node
@@ -18,15 +22,23 @@
 ## Creating Views
 
 ``` js
+
+//
+// Require viewful in our script
+//
 var viewful = require('viewful');
+
+//
+// Create a simple view using a string of Jade
+//
 var view = new viewful.View({ 
   template: "p= user.name",
   input: "jade",
   output: "html" 
 });
 ```
-
-You now have access to the following properties:
+  
+The `View` now contains following properties:
 
 ### view.template
 
@@ -98,7 +110,7 @@ var str = view.create.render({ title: 'hello' });
 ```
 
 ## Creating Presenters for Isomorphic Views
-
+<a name="presenter"></a>
 A "presenter" can be considered a function which takes data from a resource ( model ) and programmatically applies it to a rendered view.
 
 In simple use-cases, you will not need to write a presenter as most templating languages for JavaScript take in markup and data, and return a rendered view. For Level 1 DOM rendering ( think generating HTML ), this is sufficient. Viewful supports 12+ JavaScript templating languages out of the box *and* and can auto-detect templating engines based on file name extensions, so in most cases you won't have to think about "presenters".
