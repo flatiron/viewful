@@ -32,14 +32,6 @@ vows.describe('viewful/viewful-load-test').addBatch({
           assert.isNull(err);
         }
       },
-      'viewful.load(cb)' : {
-        topic : function(_view){
-          _view.load(this.callback);
-        },
-        'should not error' : function(err, _view){
-          assert.isNull(err);
-        }
-      },
       'viewful.load("/invalid/path/to")' : {
         topic : function(_view){
           var loaded = _view.load("/invalid/path/to");
@@ -66,9 +58,9 @@ vows.describe('viewful/viewful-load-test').addBatch({
         },
         'and templates should be valid' : function(err, result){
           assert.isObject(result['./test/fixtures/views/simple/'])
-          assert.isDefined(result['./test/fixtures/views/simple/']['index.html']);
-          assert.isDefined(result['./test/fixtures/views/simple/']['foo.html']);
-          assert.isDefined(result['./test/fixtures/views/simple/']['bar.html']);
+          assert.isDefined(result['./test/fixtures/views/simple/'].templates['index.html']);
+          assert.isDefined(result['./test/fixtures/views/simple/'].templates['foo.html']);
+          assert.isDefined(result['./test/fixtures/views/simple/'].templates['bar.html']);
         }
       },
       'viewful.load("./test/fixtures/views/simple/", cb)' : {
@@ -83,9 +75,9 @@ vows.describe('viewful/viewful-load-test').addBatch({
         },
         'and templates should be valid' : function(err, result){
           assert.isObject(result['./test/fixtures/views/simple/'])
-          assert.isDefined(result['./test/fixtures/views/simple/']['index.html']);
-          assert.isDefined(result['./test/fixtures/views/simple/']['foo.html']);
-          assert.isDefined(result['./test/fixtures/views/simple/']['bar.html']);
+          assert.isDefined(result['./test/fixtures/views/simple/'].templates['index.html']);
+          assert.isDefined(result['./test/fixtures/views/simple/'].templates['foo.html']);
+          assert.isDefined(result['./test/fixtures/views/simple/'].templates['bar.html']);
         }
       }
     }

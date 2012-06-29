@@ -11,9 +11,9 @@ view.load('./test/fixtures/views/simple/', function(err, html){
   if (err) {
     return console.log(err);
   }
-  console.log('async', html);
+  console.log('async', view.views);
 });
-
+return;
 //
 // Sync
 //

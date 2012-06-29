@@ -21,7 +21,7 @@ vows.describe('viewful-engines-test').addBatch({
       'should contain default "output"': function (_view) {
         assert.equal("html", _view.output);
       },
-      'and calling View.compile()'                       : helpers.compile(undefined, null, null, ""),
+      'and calling View.compile()'                       : helpers.compile(undefined, null, null, "<undefined></undefined>"),
       'and calling View.compile("p= user.name")'         : helpers.compile('p= "tobi"', null, null, "<p>tobi</p>"),
       'and calling View.compile("p= user.name", user })' : helpers.compile('p= user.name', user, null, "<p>tobi</p>")
     }
