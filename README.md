@@ -7,20 +7,21 @@
 
 ## Node
 
-   npm install viewful
-
+     npm install viewful
+     
 ## Browser
 
-   <script src="/path/to/viewful.js"></script>
+     <script src="/path/to/viewful.js"></script>
 
 # Usage
 
 ## Creating Views
 
+
 Define a view as a folder on your hard-drive
 
-    /views
-      /templates
+    /view
+      /template
         create.html
         show.html
         list.html
@@ -28,12 +29,13 @@ Define a view as a folder on your hard-drive
 Next, you'll want to load the view in your app.
 
 ``` js
-var view = viewful.load('./path/to/views);
+var viewful = require('viewful');
+var view = viewful.load("./path/to/view");
 ```
 This could also be done asynchronously  
 
 ``` js
-viewful.load('./path/to/views, function (err, view) {
+viewful.load("./path/to/view", function (err, view) {
   console.log(view);
 });
 ```
@@ -44,7 +46,9 @@ Once a view is loaded you can render it.
 var str = view['create'].render({ title: 'hello' });
 ```
 
-A view has the following variables:
+*Note: Based on the engine, there might be several other API options available, such as callbacks or streaming.*
+
+A View has the following properties:
 
 ### view.views
 
@@ -71,25 +75,25 @@ The presenter method for the view. Intended to be used after `View.render` is ca
 
 A "presenter" can be considered a function which takes data from a resource ( model ) and programmatically applies it to a rendered view.
 
-In simple use-cases, you will not need to write a presenter since most templating languages for JavaScript already act as presenters since they take in markup and data, and return a rendered view. Viewful supports 12+ JavaScript templating languages out of the box *and* and it can auto-detect templating engines based on file name extensions, so in most cases you won't have to think about "presenters".
+In simple use-cases, you will not need to write a presenter as most templating languages for JavaScript take in markup and data, and return a rendered view. For Level 1 DOM rendering ( think generating HTML ), this is sufficient. Viewful supports 12+ JavaScript templating languages out of the box *and* and can auto-detect templating engines based on file name extensions, so in most cases you won't have to think about "presenters".
 
-In more advanced use-cases, such as writing isomorphic views, you will want to create a presenter to act upon your view. This is particularly important when dealing with browser UI logic.
+In more advanced use-cases, such as writing Isomorphic Views, you will want to create a presenter to act upon your view. This is particularly important when dealing with browser UI logic.
 
 
 **Example:**
 
 ```
     /views
-      /templates
+      /template
         button.html
-     /presenters
+     /presenter
         button.js
 
 ```
 
 ### button.html
 
-```
+```html
 <div>
   <button id="thebutton">Do Something</button>
 </div>
@@ -97,9 +101,9 @@ In more advanced use-cases, such as writing isomorphic views, you will want to c
 
 ### button.js
 
-```
+```js
 module.exports = function (options, callback) {
-  // Remark: We get an isomorphic querySelectorAll polyfill for free!
+  // Remark: We get an isomorphic querySelectorAll poly-fill for free!
   var $ = this.$;
   $('#thebutton').html('Show alert');
   $('#thebutton').click(function(){
@@ -110,7 +114,7 @@ module.exports = function (options, callback) {
 
 This will render:
 
-```
+```html
 <div>
   <button id="thebutton">Show alert</button>
 </div>
@@ -126,17 +130,17 @@ In our `button.js` presenter, the following variables will automatically be avai
 querySelectorAll / jQuery selector Polyfill. ( actual version of $ depends on environment )
 
   - Server-side will fall back to cheerio ( non-dom based ).
-  - Client-side will use jQuery if availabile, and fall back to whatever selector engine the browser supports
+  - Client-side will use jQuery if available, and fall back to whatever selector engine the browser supports
 
 ### this.View
 
-The viewful View class associated with this presenter. Useful for referencing logic and templates from other views.
+The Viewful View class associated with this presenter. Useful for referencing logic and templates from other views.
 
 
 # TODO
 
  - Add broadway plugin for every engine listed @ https://github.com/visionmedia/consolidate.js/blob/master/lib/consolidate.js
-- Improve core API sugar syntax
-- Create flatiron plugin based on https://github.com/flatiron/flatiron/blob/958928e8c936c7ac72c3fb88ee530b77a780e9ea/lib/flatiron/plugins/view.js
-- Better browser support
-- Better documentation and examples
+ - Improve core API sugar syntax
+ - Create flatiron plugin based on https://github.com/flatiron/flatiron/blob/958928e8c936c7ac72c3fb88ee530b77a780e9ea/lib/flatiron/plugins/view.js
+ - Better browser support
+ - Better documentation and examples
