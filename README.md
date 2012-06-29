@@ -4,7 +4,7 @@
 
 # Philosophy
 
-`Viewful` is designed to establish the minimal amount of convention needed to create Isomorphic JavaScript views. It supports *all* templating engines available for JavaScript and is completely pluggable for customization. `Viewful` also includes a very basic <a href="#presenter">Presenter Pattern</a> to help build complex User-Interfaces.
+`Viewful` is designed to establish the minimal amount of convention needed to create Isomorphic JavaScript views. It supports *all* templating engines available for JavaScript and is completely pluggable for customization. `Viewful` also includes a basic <a href="#presenter">Presenter Pattern</a> to help build complex User-Interfaces.
 
 # Installation
 
@@ -112,15 +112,14 @@ var str = view.create.render({ title: 'hello' });
 ## Creating Presenters for Isomorphic Views
 A "presenter" can be considered a function which takes data and programmatically applies it to a rendered view.
 
-In simple use-cases, you will not need to write a presenter as most templating languages for JavaScript take in markup and data, and return a rendered view. For Level 1 DOM rendering ( think generating HTML ), this is sufficient. In most cases you won't have to think about "presenters".
+In simple use-cases, you will not need to write a presenter as most templating languages for JavaScript support a `Render` method which takes in markup and data, and returns a rendered view. For Level 1 DOM rendering ( such as generating HTML ), using `Render` is sufficient. In most cases you won't have to think about "presenters".
 
-In more advanced use-cases, such as writing Isomorphic Views, you will want to create a presenter to act upon your view. This is particularly important when dealing with browser UI logic.
-
+In more advanced use-cases, such as writing Isomorphic Views that can gracefully fallback, you will want to create a presenter to act upon your view. This is particularly important when dealing with browser UI logic such as mouse and keyboard events.
 
 **Example:**
 
 ```
-/views
+/myview
   button.html
   button.js
 
@@ -151,7 +150,7 @@ module.exports = function (options, callback) {
 // Create a new view
 var view = new viewful.View({
   input: "swig",
-  path: "./path/to/views"
+  path: "./path/to/myview"
 });
 
 // Load the view
