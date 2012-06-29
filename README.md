@@ -1,4 +1,3 @@
-
 # Unreleased / Experimental
 
 # viewful - Tiny and Isomorphic view engine for Flatiron
@@ -15,61 +14,87 @@
 
 # Usage
 
+
 ## Creating Views
-
-
-Define a view as a folder on your hard-drive
-
-    /view
-      /template
-        create.html
-        show.html
-        list.html
-
-Next, you'll want to load the view in your app.
 
 ``` js
 var viewful = require('viewful');
-var view = viewful.load("./path/to/view");
+var view = new viewful.View({ 
+  template: "p= user.name",
+  input: "jade",
+  output: "html" 
+});
+
+You now have access to the following properties:
+
+### view.template
+
+Template for the view. In this case, `"p= user.name"`
+
+### view.render(data)
+
+The render method for the view. Will use the `input` templating engine and use the `output` engine to show the rendered result
+
+Ex: 
 ```
-This could also be done asynchronously  
+   view.render({user: { name: "Marak" }})
+```
+
+Outputs:
+```
+   <p>Marak</p>
+```
+
+*Note: Based on the templating engine, there might be several other rendering API options available, such as callbacks or streaming.*
+
+
+### view.present()
+
+The presenter method for the view. Intended to be used on the results of a `View.render` to apply Level 2 DOM Events to the rendered markup. In simple use-cases, you will not call this method.
+
+## Loading a view from disk
+
+### Define a View as a folder on your hard-drive
+
+    /view
+      create.jade
+      show.jade
+      list.jade
+
+```
+var view = new viewful.View({
+  path: "./path/to/view",
+  input: "jade",
+  output: "html"
+});
+```
+
+By design, a View won't attempt to load any template assets on construction. Templates are loading using the `View.load` method after the View has been created.
 
 ``` js
-viewful.load("./path/to/view", function (err, view) {
+view.load();
+```
+
+This could also be performed asynchronously.
+
+``` js
+viewful.load(function (err, view) {
   console.log(view);
 });
 ```
 
-Once a view is loaded you can render it.
+Once a view is loaded, it can be rendered using `View.render`.
 
-```js
-var str = view['create'].render({ title: 'hello' });
+
+`create.jade`
+
+```
+somejadestuff=
 ```
 
-*Note: Based on the engine, there might be several other API options available, such as callbacks or streaming.*
-
-A View has the following properties:
-
-### view.views
-
-Object hash containing all loaded views.
-
-### view.views['create']
-
-The View. In this case, `create`.
-
-### view.views['create'].template
-
-Template for the view. In this case, the html loaded from `create.html`.
-
-### view.views['create'].render()
-
-The render method for the view. Will run template engine associated with file extension against the template and return the results.
-
-### view.views['create'].present()
-
-The presenter method for the view. Intended to be used after `View.render` is called to apply Level 2 DOM Events to the rendered markup. In simple use-cases, you will not call this method.
-
+```js
+var str = view.create.render({ title: 'hello' });
+```
 
 ## Creating Presenters for Isomorphic Views
 
@@ -84,9 +109,8 @@ In more advanced use-cases, such as writing Isomorphic Views, you will want to c
 
 ```
     /views
-      /template
-        button.html
-     /presenter
+      button.html
+      /presenter
         button.js
 
 ```
@@ -125,17 +149,37 @@ If DOM Level 2 Events are available ( such as a browser ! ), the presenter will 
 
 In our `button.js` presenter, the following variables will automatically be available in scope:
 
-### this.$
+### Presenter.$
 
 querySelectorAll / jQuery selector Polyfill. ( actual version of $ depends on environment )
 
   - Server-side will fall back to cheerio ( non-dom based ).
   - Client-side will use jQuery if available, and fall back to whatever selector engine the browser supports
 
-### this.View
+### Presenter.View
 
 The Viewful View class associated with this presenter. Useful for referencing logic and templates from other views.
 
+## viewful.View options
+
+All constructor options are optional.
+
+*View options*
+
+`options.path`
+ - *String* - Path to where your view is located
+`options.template`
+ - *String* - Template for View
+`options.input`
+ - *String* - Input templating engine. Defaults to `Plates`
+`options.output`
+- *String* - Output templating engine. Defaults to `HTML`
+`options.render`
+ - *Function* - Override default rendering method for View
+`options.present`
+ - *Function* - Override default presenter method for View
+
+The view object will attempt to auto-detect the templating engine based on the file-extension of each template. You can over-ride these settings by an `input` and `output` option.
 
 # TODO
 
