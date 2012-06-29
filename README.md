@@ -24,6 +24,7 @@ var view = new viewful.View({
   input: "jade",
   output: "html" 
 });
+```
 
 You now have access to the following properties:
 
