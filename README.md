@@ -4,7 +4,7 @@
 
 # Philosophy
 
-`Viewful` is designed to establish the minimal amount of convention needed to create Isomorphic JavaScript views. It supports *all* templating engines available for JavaScript and is completely pluggable for customization. `Viewful` also includes a basic <a href="#presenter">Presenter Pattern</a> to help build complex User-Interfaces.
+`Viewful` is designed to establish the minimal amount of convention needed to create Isomorphic JavaScript views. `Viewful` makes no assumptions about your application. It supports *all* templating engines available for JavaScript and is completely pluggable for customization. `Viewful` also includes a basic <a href="#presenter">Presenter Pattern</a> to help build User-Interfaces that can gracefully fallback to server-side templating.
 
 # Installation
 
@@ -42,47 +42,50 @@ The `View` now contains following properties:
 
 ### view.template
 
-Template for the view. In this case, `"p= user.name"`
+Template for the view. In this case, `p= user.name`
 
 ### view.render(data)
 
-The render method for the view. Will use the `input` templating engine and use the `output` engine to show the rendered result
+The render method for the view. Will use `input` and `output` templating engines.
 
 Ex: 
-```
-   view.render({user: { name: "Marak" }})
+```js
+view.render({user: { name: "Marak" }})
 ```
 
 Outputs:
-```
-   <p>Marak</p>
+```html
+<p>Marak</p>
 ```
 
 *Note: Based on the templating engine, there might be several other rendering API options available, such as callbacks or streaming.*
 
+### view.load(path, /* callback */)
 
-### view.present()
+A helper method for loading folders of views synchronously or asynchronously on the browser or the server. Optional if `template` has already been specified.
 
-The presenter method for the view. Intended to be used on the results of a `View.render` to apply Level 2 DOM Events to the rendered markup. In simple use-cases, you will not call this method.
+### view.present(data)
+
+The presenter method for the view. Intended to be used on the results of a `View.render()` call to apply Level 2 DOM Events to the rendered markup. In simple use-cases, you will not use this method.
 
 ## Loading a view from disk
 
 ### Define a View as a folder on your hard-drive
 
-    /view
+    /myview
       create.jade
       show.jade
       list.jade
 
-```
+```js
 var view = new viewful.View({
-  path: "./path/to/view",
+  path: "./path/to/myview",
   input: "jade",
   output: "html"
 });
 ```
 
-By design, a View won't attempt to load any template assets on construction. Templates are loading using the `View.load` method after the View has been created.
+By design, a View won't attempt to load any template assets on construction. Templates are loaded using the `View.load` method after the View has been created.
 
 ``` js
 view.load();
@@ -100,14 +103,20 @@ Once a view is loaded, it can be rendered using `View.render`.
 
 
 `create.jade`
-
 ```
-somejadestuff=
+p= user.name
 ```
 
 ```js
-var str = view.create.render({ title: 'hello' });
+var str = view.create.render({ user: { name: "Marak" }});
 ```
+
+This will render:
+
+```html
+<p>Marak</p>
+```
+
 <a name="presenter"></a>
 ## Creating Presenters for Isomorphic Views
 A "presenter" can be considered a function which takes data and programmatically applies it to a rendered view.
@@ -122,7 +131,6 @@ In more advanced use-cases, such as writing Isomorphic Views that can gracefully
 /myview
   button.html
   button.js
-
 ```
 
 ### button.html
@@ -158,7 +166,6 @@ view.load();
 
 // Render the view
 view.button.render({ label: "Show Alert" });
-
 
 This will render:
 
