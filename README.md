@@ -166,6 +166,7 @@ view.load();
 
 // Render the view
 view.button.render({ label: "Show Alert" });
+```
 
 This will render:
 
@@ -203,19 +204,28 @@ TODO:
 
 All constructor options are optional.
 
-*View options*
+**options.path**
 
-`options.path`
  - *String* - Path to where your view is located
-`options.template`
+
+**options.template**
+
  - *String* - Template for View
-`options.input`
+
+**options.input**
+
  - *String* - Input templating engine. Defaults to `Plates`
-`options.output`
-- *String* - Output templating engine. Defaults to `HTML`
-`options.render`
+ 
+**options.output**
+ 
+ - *String* - Output templating engine. Defaults to `HTML`
+ 
+**options.render**
+ 
  - *Function* - Override default rendering method for View
-`options.present`
+ 
+**options.present**
+
  - *Function* - Override default presenter method for View
 
 The view object will attempt to auto-detect the templating engine based on the file-extension of each template. You can over-ride these settings by an `input` and `output` option.
