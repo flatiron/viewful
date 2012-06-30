@@ -4,7 +4,7 @@
 
 # Philosophy
 
-`Viewful` is designed to establish the minimal amount of convention needed to create Isomorphic JavaScript views. `Viewful` makes no assumptions about your application. It supports *all* templating engines available for JavaScript and is completely pluggable for customization. `Viewful` also includes a basic <a href="#presenter">Presenter Pattern</a> to help build User-Interfaces that can gracefully fallback to server-side templating.
+`Viewful` is designed to establish the minimal amount of convention needed to create Isomorphic JavaScript views. `Viewful` makes no assumptions about your application. It supports *all* templating engines available for JavaScript and is completely pluggable for customization. `Viewful` also includes a basic <a href="#presenter">Presenter Pattern</a> to help build rich user interfaces that can gracefully fallback to server-side templating.
 
 # Installation
 
@@ -118,14 +118,14 @@ This will render:
 ```
 
 <a name="presenter"></a>
-## Creating Presenters for Isomorphic Views
-A "presenter" can be considered a function which takes data and programmatically applies it to a rendered view.
+## Creating View Presenters
+A "presenter" can be considered a function which takes data and programmatically applies it to a rendered view. The source of the data is unknown to the View and the rendered result is unknown to the data source.
 
-In simple use-cases, you will not need to write a presenter as most templating languages for JavaScript support a `Render` method which takes in markup and data, and returns a rendered view. For Level 1 DOM rendering ( such as generating HTML ), using `Render` is sufficient. In most cases you won't have to think about "presenters".
+In simple use-cases, you will not need to write a presenter. Most templating engines for JavaScript provide a `Render` method which takes in data and applies it to a view. In Level 1 DOM rendering ( such as generating HTML ), using `Render` is sufficient. In most cases you'll just need to generate some HTML and won't have to think about a writing "presenter".
 
-In more advanced use-cases, such as writing Isomorphic Views that can gracefully fallback, you will want to create a presenter to act upon your view. This is particularly important when dealing with browser UI logic such as mouse and keyboard events.
+In more advanced use-cases, such as writing Isomorphic Views, you will want to create a presenter to act upon your view. This is particularly important when implementing data-binding, or dealing with browser UI logic such as mouse and keyboard events.
 
-**Example:**
+**Button Alert Example:**
 
 ```
 /myview
@@ -176,11 +176,11 @@ This will render:
 ```
 
 ```js
-// Present the View
+// Now we Present the View, triggering our event bindings
 view.button.present();
 ```
 
-If DOM Level 2 Events are available ( such as a browser ! ), the presenter will also apply the click event to the button that triggers an alert when the button is clicked.
+If DOM Level 2 Events are available ( such as a browser ! ), the presenter will apply the click event to the button that triggers an alert when the button is clicked.
 
 In our `button.js` `Presenter` have methods bound into scope.
 
@@ -193,8 +193,7 @@ querySelectorAll / jQuery selector Polyfill. ( actual version of $ depends on en
 
 ### Presenter.View
 
-The Viewful View class associated with this presenter. Useful for referencing logic and templates from other views.
-
+The Viewful View class associated with this presenter. Useful for referencing templates from sibling and child Views.
 
 ## Transforming between different engines
 
