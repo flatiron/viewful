@@ -1,10 +1,11 @@
-# Unreleased / Experimental
+## Unreleased / Experimental
 
-# viewful - Tiny and Isomorphic consolidated view engine for Flatiron
+# viewful - Tiny and isomorphic consolidated view engine
 
-# Philosophy
 
-`Viewful` is designed to establish the minimal amount of convention needed to create Isomorphic JavaScript views. `Viewful` makes no assumptions about your application or templating choices. It supports *all* templating engines available for JavaScript and is completely pluggable for customization. `Viewful` also includes a basic <a href="#presenter">Presenter Pattern</a> to help build rich user interfaces that can gracefully fallback to server-side templating.
+# Overview
+
+`Viewful` establishes the minimal amount of convention needed to create Isomorphic JavaScript views. `Viewful` makes no assumptions about your application or templating choices. It supports *all* templating engines available for JavaScript and is completely pluggable for customization. `Viewful` also includes a basic <a href="#presenter">Presenter Pattern</a> to help build rich user interfaces that can gracefully fallback to server-side templating.
 
 # Installation
 
@@ -19,7 +20,7 @@
 # Usage
 
 
-## Creating Views
+## Creating a View
 
 ``` js
 
@@ -38,7 +39,7 @@ var view = new viewful.View({
 });
 ```
   
-The `View` now contains following properties:
+A `View` has the following properties:
 
 ### view.template
 
@@ -123,7 +124,7 @@ var html = view.create.render({ user: { name: "Marak" }});
 
 <a name="presenter"></a>
 ## Creating View Presenters
-A **Presenter** can be considered a function which takes data and programmatically applies it to a rendered template. The source of the data is unknown to the View and the rendered result is unknown to the data source.
+A **Presenter** can be containred a function which takes data and programmatically applies it to a rendered template. The source of the data is unknown to the View and the rendered result is unknown to the data source.
 
 In simple use-cases, you will not need to write a presenter. Most templating engines for JavaScript provide a render method which takes in data and applies it to a view.  In Level 1 DOM rendering ( such as generating HTML ), using `View.render` is sufficient. In most cases you'll just be generating markup and won't have to think about a writing "presenter".
 
@@ -194,7 +195,7 @@ Our `button.js` `Presenter` has the following methods bound into scope.
 A querySelectorAll / jQuery selector Polyfill. The actual version of $ depends on what is available in the environment.
 
 **Server-side**
-å
+
  - Cheerio ( non-dom based )
  
 **Browser**
@@ -211,31 +212,31 @@ The `viewful.View` class associated with the presenter. Useful for referencing i
 
 All constructor options are optional.
 
-**options.path**
+### options.path
 
  - *String* - Path to where your view is located
 
-**options.template**
+### options.template
 
  - *String* - Template for View
 
-**options.input**
+### options.input
 
  - *String* - Input templating engine. Defaults to `Plates`
  
-**options.output**
+### options.output
  
  - *String* - Output templating engine. Defaults to `HTML`
  
-**options.render**
+### options.render
  
  - *Function* - Override default rendering method for View
  
-**options.present**
+### options.present
 
  - *Function* - Override default presenter method for View
 
-The view object will attempt to auto-detect the templating engine based on the file-extension of each template. You can over-ride these settings by an `input` and `output` option.
+*Note: The view object will attempt to auto-detect the templating engine based on the file-extension of each template. You can over-ride these settings by an `input` and `output` option.*
 
 # TODO
 
