@@ -14,23 +14,10 @@ vows.describe('viewful/viewful-load-test').addBatch({
         assert.isFunction(_view.load);
       },
       'should contain default "input"': function (_view) {
-        assert.equal("jup", _view.input);
+        assert.equal(_view.input, "plates");
       },
       'should contain default "output"': function (_view) {
-        assert.equal("html", _view.output);
-      },
-      'viewful.load()' : {
-        topic : function(_view){
-          try {
-            var loaded = _view.load();
-            this.callback(null, loaded);
-          } catch (err) {
-            this.callback(err);
-          }
-        },
-        'should return error' : function(err, loaded){
-          assert.isNull(err);
-        }
+        assert.equal(_view.output, "html");
       },
       'viewful.load("/invalid/path/to")' : {
         topic : function(_view){
@@ -57,10 +44,13 @@ vows.describe('viewful/viewful-load-test').addBatch({
           assert.isObject(result)
         },
         'and templates should be valid' : function(err, result){
-          assert.isObject(result['./test/fixtures/views/simple/'])
-          assert.isDefined(result['./test/fixtures/views/simple/'].templates['index.html']);
-          assert.isDefined(result['./test/fixtures/views/simple/'].templates['foo.html']);
-          assert.isDefined(result['./test/fixtures/views/simple/'].templates['bar.html']);
+          assert.isObject(result)
+          assert.isDefined(result.index.template);
+          assert.isDefined(result.bar.template);
+          assert.isDefined(result.foo.template);
+          assert.isDefined(result.bar.render);
+          assert.isDefined(result.foo.render);
+          assert.isDefined(result.bar.present);
         }
       },
       'viewful.load("./test/fixtures/views/simple/", cb)' : {
@@ -74,10 +64,14 @@ vows.describe('viewful/viewful-load-test').addBatch({
           assert.isObject(result)
         },
         'and templates should be valid' : function(err, result){
-          assert.isObject(result['./test/fixtures/views/simple/'])
-          assert.isDefined(result['./test/fixtures/views/simple/'].templates['index.html']);
-          assert.isDefined(result['./test/fixtures/views/simple/'].templates['foo.html']);
-          assert.isDefined(result['./test/fixtures/views/simple/'].templates['bar.html']);
+          console.log(result.bar)
+          assert.isObject(result)
+          assert.isDefined(result.index.template);
+          assert.isDefined(result.bar.template);
+          assert.isDefined(result.foo.template);
+          assert.isDefined(result.bar.render);
+          assert.isDefined(result.foo.render);
+          assert.isDefined(result.bar.present);
         }
       }
     }

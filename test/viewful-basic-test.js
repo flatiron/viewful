@@ -21,9 +21,9 @@ vows.describe('viewful/viewful-basic-test').addBatch({
       'should contain engines': function (_viewful) {
         assert.isObject(_viewful.engines);
       },
-      'should have loaded JUP engine': function (_viewful) {
-        assert.isObject(_viewful.engines['jup']);
-        assert.isFunction(_viewful.engines['jup'].compile);
+      'should have loaded plates engine': function (_viewful) {
+        assert.isObject(_viewful.engines['plates']);
+        assert.isFunction(_viewful.engines['plates'].compile);
       },
       'should be able to create a new View instance': function (_viewful) {
         assert.isObject(new _viewful.View());
@@ -38,13 +38,15 @@ vows.describe('viewful/viewful-basic-test').addBatch({
         assert.isFunction(_view.compile);
       },
       'should contain default "input"': function (_view) {
-        assert.equal("jup", _view.input);
+        assert.equal(_view.input, "plates");
       },
       'should contain default "output"': function (_view) {
-        assert.equal("html", _view.output);
-      },
+        assert.equal(_view.output, "html");
+      }
+      /*
       'and calling View.compile()':                 helpers.compile(),
-      'and calling View.compile(["p", user.name])': helpers.compile(["p", "marak"], null, null, "<p>marak</p>"),
+      'and calling View.compile(["p", user.name])': helpers.compile({ title : "hello!" }, null, null, "<h1>marak</h1>"),
+      */
     }
   }
 }).export(module);
