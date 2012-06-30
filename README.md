@@ -1,10 +1,10 @@
 # Unreleased / Experimental
 
-# viewful - Tiny and Isomorphic view engine for Flatiron
+# viewful - Tiny and Isomorphic consolidated view engine for Flatiron
 
 # Philosophy
 
-`Viewful` is designed to establish the minimal amount of convention needed to create Isomorphic JavaScript views. `Viewful` makes no assumptions about your application. It supports *all* templating engines available for JavaScript and is completely pluggable for customization. `Viewful` also includes a basic <a href="#presenter">Presenter Pattern</a> to help build rich user interfaces that can gracefully fallback to server-side templating.
+`Viewful` is designed to establish the minimal amount of convention needed to create Isomorphic JavaScript views. `Viewful` makes no assumptions about your application or templating choices. It supports *all* templating engines available for JavaScript and is completely pluggable for customization. `Viewful` also includes a basic <a href="#presenter">Presenter Pattern</a> to help build rich user interfaces that can gracefully fallback to server-side templating.
 
 # Installation
 
@@ -70,12 +70,16 @@ The presenter method for the view. Intended to be used on the results of a `View
 
 ## Loading a view from disk
 
+In most cases, a View will be based on a folder of files. Viewful can automatically handle the process of loading template folders through the `View.load` method.
+
 ### Define a View as a folder on your hard-drive
 
     /myview
       create.jade
       show.jade
       list.jade
+
+*Note: The `myview` folder consists of three files using the Jade templating language*
 
 ```js
 var view = new viewful.View({
@@ -85,13 +89,13 @@ var view = new viewful.View({
 });
 ```
 
-By design, a View won't attempt to load any template assets on construction. Templates are loaded using the `View.load` method after the View has been created.
+**By design, a View will not automatically attempt to load template assets on construction. Templates are loaded using the `View.load` method after the View has been constructed.**
 
 ``` js
 view.load();
 ```
 
-This could also be performed asynchronously.
+This same operation can also be performed asynchronously.
 
 ``` js
 viewful.load(function (err, view) {
@@ -99,19 +103,19 @@ viewful.load(function (err, view) {
 });
 ```
 
-Once a view is loaded, it can be rendered using `View.render`.
+Once the view is loaded, it can be rendered using `View.render`.
 
 
-`create.jade`
+`/myview/create.jade`
 ```
 p= user.name
 ```
 
 ```js
-var str = view.create.render({ user: { name: "Marak" }});
+var html = view.create.render({ user: { name: "Marak" }});
 ```
 
-This will render:
+`html` will now contain the following string:
 
 ```html
 <p>Marak</p>
@@ -119,11 +123,11 @@ This will render:
 
 <a name="presenter"></a>
 ## Creating View Presenters
-A "presenter" can be considered a function which takes data and programmatically applies it to a rendered view. The source of the data is unknown to the View and the rendered result is unknown to the data source.
+A **Presenter** can be considered a function which takes data and programmatically applies it to a rendered template. The source of the data is unknown to the View and the rendered result is unknown to the data source.
 
-In simple use-cases, you will not need to write a presenter. Most templating engines for JavaScript provide a `Render` method which takes in data and applies it to a view. In Level 1 DOM rendering ( such as generating HTML ), using `Render` is sufficient. In most cases you'll just need to generate some HTML and won't have to think about a writing "presenter".
+In simple use-cases, you will not need to write a presenter. Most templating engines for JavaScript provide a render method which takes in data and applies it to a view.  In Level 1 DOM rendering ( such as generating HTML ), using `View.render` is sufficient. In most cases you'll just be generating markup and won't have to think about a writing "presenter".
 
-In more advanced use-cases, such as writing Isomorphic Views, you will want to create a presenter to act upon your view. This is particularly important when implementing data-binding, or dealing with browser UI logic such as mouse and keyboard events.
+In more advanced use-cases, such as writing Isomorphic Views, you will want to create a Presenter to act upon your View. This is particularly important when implementing data-binding, or dealing with browser UI logic such as mouse and keyboard events.
 
 **Button Alert Example:**
 
@@ -183,22 +187,25 @@ view.button.present();
 
 If DOM Level 2 Events are available ( such as a browser ! ), the presenter will apply the click event to the button that triggers an alert when the button is clicked.
 
-In our `button.js` `Presenter` have methods bound into scope.
+Our `button.js` `Presenter` has the following methods bound into scope.
 
 ### Presenter.$
 
-querySelectorAll / jQuery selector Polyfill. ( actual version of $ depends on environment )
+A querySelectorAll / jQuery selector Polyfill. The actual version of $ depends on what is available in the environment.
 
-  - Server-side will fall back to cheerio ( non-dom based ).
-  - Client-side will use jQuery if available, and fall back to whatever selector engine the browser supports
+**Server-side**
+å
+ - Cheerio ( non-dom based )
+ 
+**Browser**
 
-### Presenter.View
+  - jQuery if available
+  - Fall back to querySelectorAll if available
+  - Falls back to included Zepto.js
 
-The Viewful View class associated with this presenter. Useful for referencing templates from sibling and child Views.
+### Presenter.view
 
-## Transforming between different engines
-
-TODO: 
+The `viewful.View` class associated with the presenter. Useful for referencing information about the View.
 
 ## viewful.View options
 
