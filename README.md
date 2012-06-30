@@ -90,15 +90,15 @@ var view = new viewful.View({
 });
 ```
 
-**By design, a View will not automatically attempt to load template assets on construction. Templates are loaded using the `View.load` method after the View has been constructed.**
+**Note: By design, a View will not automatically attempt to load template assets on construction. Templates are loaded using the `View.load` method after the View has been constructed.**
 
-``` js
+```js
 view.load();
 ```
 
 This same operation can also be performed asynchronously.
 
-``` js
+```js
 viewful.load(function (err, view) {
   console.log(view);
 });
@@ -124,7 +124,7 @@ var html = view.create.render({ user: { name: "Marak" }});
 
 <a name="presenter"></a>
 ## Creating View Presenters
-A **Presenter** can be containred a function which takes data and programmatically applies it to a rendered template. The source of the data is unknown to the View and the rendered result is unknown to the data source.
+A **Presenter** can be considered a function which takes data and programmatically applies it to a rendered template. The source of the data is unknown to the template and the rendered result is unknown to the data source.
 
 In simple use-cases, you will not need to write a presenter. Most templating engines for JavaScript provide a render method which takes in data and applies it to a view.  In Level 1 DOM rendering ( such as generating HTML ), using `View.render` is sufficient. In most cases you'll just be generating markup and won't have to think about a writing "presenter".
 
