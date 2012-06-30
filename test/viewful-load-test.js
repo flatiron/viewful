@@ -64,7 +64,6 @@ vows.describe('viewful/viewful-load-test').addBatch({
           assert.isObject(result)
         },
         'and templates should be valid' : function(err, result){
-          console.log(result.bar)
           assert.isObject(result)
           assert.isDefined(result.index.template);
           assert.isDefined(result.bar.template);

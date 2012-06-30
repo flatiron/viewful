@@ -12,9 +12,6 @@ vows.describe('viewful/viewful-basic-test').addBatch({
         assert(true, true);
       },
       topic: viewful,
-      'should contain a top-level compile method': function (_viewful) {
-        assert.isFunction(_viewful.compile);
-      },
       'should contain a top-level View class': function (_viewful) {
         assert.isFunction(_viewful.View);
       },
@@ -23,7 +20,7 @@ vows.describe('viewful/viewful-basic-test').addBatch({
       },
       'should have loaded plates engine': function (_viewful) {
         assert.isObject(_viewful.engines['plates']);
-        assert.isFunction(_viewful.engines['plates'].compile);
+        assert.isFunction(_viewful.engines['plates'].render);
       },
       'should be able to create a new View instance': function (_viewful) {
         assert.isObject(new _viewful.View());
@@ -34,8 +31,8 @@ vows.describe('viewful/viewful-basic-test').addBatch({
       'should return a new View': function (_view) {
         assert.isObject(_view);
       },
-      'should contain "compile" function': function (_view) {
-        assert.isFunction(_view.compile);
+      'should contain "render" function': function (_view) {
+        assert.isFunction(_view.render);
       },
       'should contain default "input"': function (_view) {
         assert.equal(_view.input, "plates");

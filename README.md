@@ -1,6 +1,6 @@
 ## Unreleased / Experimental
 
-# viewful - Tiny and isomorphic consolidated view engine
+# viewful - tiny and isomorphic consolidated view engine
 
 
 # Overview
@@ -49,12 +49,12 @@ Template for the view. In this case, `p= user.name`
 
 The render method for the view. Will use `input` and `output` templating engines.
 
-Ex: 
+**Ex:** 
 ```js
 view.render({user: { name: "Marak" }})
 ```
 
-Outputs:
+**Outputs:**
 ```html
 <p>Marak</p>
 ```
