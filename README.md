@@ -71,7 +71,7 @@ The presenter method for the view. Intended to be used on the results of a `View
 
 ## Loading a view from disk
 
-In most cases, a View will be based on a folder of files. Viewful can automatically handle the process of loading template folders through the `View.load` method.
+In most cases, a View will be based on a file or a folder of files. Viewful can automatically handle the process of loading template files through the `View.load` method.
 
 ### Define a View as a folder on your hard-drive
 
@@ -126,7 +126,7 @@ var html = view.create.render({ user: { name: "Marak" }});
 ## Creating View Presenters
 A **Presenter** can be considered a function which takes data and programmatically applies it to a rendered template. The source of the data is unknown to the template and the rendered result is unknown to the data source.
 
-In simple use-cases, you will not need to write a presenter. Most templating engines for JavaScript provide a render method which takes in data and applies it to a view.  In Level 1 DOM rendering ( such as generating HTML ), using `View.render` is sufficient. In most cases you'll just be generating markup and won't have to think about a writing "presenter".
+In simple use-cases, you will not need to write a presenter. Most templating engines for JavaScript provide a render method which takes in data and applies it to a template.  In Level 1 DOM rendering ( such as generating HTML ), using `View.render` is sufficient. In most cases you'll just be generating markup and won't have to think about a writing "presenter".
 
 In more advanced use-cases, such as writing Isomorphic Views, you will want to create a Presenter to act upon your View. This is particularly important when implementing data-binding, or dealing with browser UI logic such as mouse and keyboard events.
 
