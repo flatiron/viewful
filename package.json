@@ -3,9 +3,14 @@
   "name": "viewful",
   "version": "0.0.0",
   "dependencies": {
-    "utile": "0.0.10"
+    "utile": "0.0.10",
+    "cheerio": "0.9.x"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "vows": "*",
+    "broadway": "*",
+    "jade": "*"
+  },
   "optionalDependencies": {},
   "engines": {
     "node": "*"
