@@ -8,6 +8,7 @@ helpers.render = function (data, expected) {
       _view.render(data, this.callback);
     },
     'should compile expected result' : function (err, result) {
+      assert.ifError(err);
       assert.equal(result, expected);
     }
   }
