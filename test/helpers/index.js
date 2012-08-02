@@ -5,7 +5,7 @@ helpers.render = function (data, expected) {
   expected = expected || '';
   return {
     topic: function(_view){
-      this.callback(null, _view.render(data));
+      _view.render(data, this.callback);
     },
     'should compile expected result' : function (err, result) {
       assert.equal(result, expected);
