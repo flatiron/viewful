@@ -241,7 +241,9 @@ All constructor options are optional.
 # TODO
 
  - Add broadway plugin for every engine listed @ https://github.com/visionmedia/consolidate.js/blob/master/lib/consolidate.js
-   - Possibly remove jade engine tests except for render() test?.. all tests except render pass without jade plugin directory, they seem to test view plugin functionality instead of engine plugin functionality
+  - Remove jade engine tests except for render() test?.. all tests except render pass without jade plugin directory, they seem to test view plugin functionality instead of engine plugin functionality
+  - Remove exports.jade = function () {..} from jade engine plugin?.. seems redundant and might be legacy code from consolidate.js
+  - Add try/catch statement to surround jade.compile() in jade engine plugin?.. similar to what is done in swig engine plugin
  - Improve core API sugar syntax
  - Create flatiron plugin based on https://github.com/flatiron/flatiron/blob/958928e8c936c7ac72c3fb88ee530b77a780e9ea/lib/flatiron/plugins/view.js
  - Better browser support
