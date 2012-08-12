@@ -25,6 +25,14 @@ vows.describe('viewful-engines-test').addBatch({
         assert.equal("html", _view.output);
       },
       'and calling View.render(user)' : helpers.render(user, "<p>tobi</p>")
+    },
+
+    'a new viewful.View({ input: "swig" })': {
+      topic: new viewful.View({
+        template: "<p>{{user.name}}</p>",
+        input: "swig"
+      }),
+      'and calling View.render(user)': helpers.render(user, "<p>tobi</p>")
     }
   }
 }).export(module);
