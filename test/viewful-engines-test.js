@@ -33,7 +33,16 @@ vows.describe('viewful-engines-test').addBatch({
         input: "swig"
       }),
       'and calling View.render(user)': helpers.render(user, "<p>tobi</p>")
+    },
+
+    'a new viewful.View({ input: "liquor" })': {
+      topic: new viewful.View({
+        template: "<p>#{user.name}</p>",
+        input: "liquor"
+      }),
+      'and calling View.render(user)': helpers.render(user, "<p>tobi</p>")
     }
+
   }
 }).export(module);
 
