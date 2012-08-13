@@ -3,7 +3,7 @@ var assert = require('assert'),
     helpers = require('./helpers'),
     viewful = require('../lib/viewful');
 
-var user = { user : { name: "tobi" }};
+var user = { user : { name: "tobi" } };
 
 vows.describe('viewful-engines-test').addBatch({
   'When using `viewful`': {
