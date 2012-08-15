@@ -244,6 +244,9 @@ All constructor options are optional.
   - Remove jade engine tests except for render() test?.. all tests except render pass without jade plugin directory, they seem to test view plugin functionality instead of engine plugin functionality
   - Remove exports.jade = function () {..} from jade engine plugin?.. seems redundant and might be legacy code from consolidate.js
   - Add try/catch statement to surround jade.compile() in jade engine plugin?.. similar to what is done in swig engine plugin
+  - Refactor to use named function expressions for attach(), init() and render()? Shouldn't template engine plugins be isomorphic?
+  - Dust engine plugin only renders asynchronously and needs a callback param... how should we handle any attempts to use sync render() from view layer?
+  - Add options as optional parameter of View.render()? Currently, template engine plugins can only be configure with options at app.attach().
  - Improve core API sugar syntax
  - Create flatiron plugin based on https://github.com/flatiron/flatiron/blob/958928e8c936c7ac72c3fb88ee530b77a780e9ea/lib/flatiron/plugins/view.js
  - Better browser support
