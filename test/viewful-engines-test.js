@@ -51,7 +51,7 @@ vows.describe('viewful-engines-test').addBatch({
         template: "<p>{#user}{name}{/user}</p>",
         input: "dust"
       }),
-      'and calling View.render(user)': helpers.render(user, "<p>tobi</p>")
+      'and calling View.render(user, cb)': helpers.render(user, "<p>tobi</p>")
     }
 
   }
