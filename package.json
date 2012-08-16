@@ -8,7 +8,15 @@
   },
   "devDependencies": {
     "vows": "*",
-    "broadway": "*"
+    "broadway": "*",
+    "liquor": "*",
+    "swig": "*",
+    "dustjs-linkedin": "*",
+    "eco": "*",
+    "ejs": "*",
+    "haml": "*",
+    "jazz": "*",
+    "jqtpl": "*"
   },
   "optionalDependencies": {},
   "engines": {
