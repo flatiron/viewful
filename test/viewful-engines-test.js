@@ -78,6 +78,15 @@ vows.describe('viewful-engines-test').addBatch({
         input: "jazz"
       }),
       'and calling View.render(user, cb)': helpers.render(user, "<p>tobi</p>")
+    },
+
+    'a new viewful.View({ input: "jqtpl" })': {
+      topic: new viewful.View({
+        template: "<p>${user.name}</p>",
+        input: "jqtpl"
+      }),
+      'and calling View.render(user)': helpers.renderSync(user, "<p>tobi</p>"),
+      'and calling View.render(user, cb)': helpers.render(user, "<p>tobi</p>")
     }
 
   }
