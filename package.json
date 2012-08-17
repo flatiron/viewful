@@ -16,6 +16,7 @@
     "ejs": "*",
     "haml": "*",
     "haml-coffee": "*",
+    "hogan.js": "*",
     "jazz": "*",
     "jqtpl": "*",
     "whiskers": "*"
