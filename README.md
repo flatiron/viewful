@@ -1,11 +1,16 @@
 ## Unreleased / Experimental
 
-# viewful - tiny and isomorphic consolidated view engine
+# viewful - consolidated view engine for Flatiron
 
 
 # Overview
 
-`Viewful` establishes the minimal amount of convention needed to create Isomorphic JavaScript views. `Viewful` makes no assumptions about your application or templating choices. It supports *all* templating engines available for JavaScript and is completely pluggable for customization. `Viewful` also includes a basic <a href="#presenter">Presenter Pattern</a> for building rich user interfaces that will gracefully fallback to server-side templating.
+Viewful establishes the minimal amount of convention needed to create JavaScript views. Viewful makes no assumptions about your application or templating choices. 
+
+Viewful supports *all* templating engines available for JavaScript and is completely pluggable for customization. 
+
+Viewful also includes a basic <a href="#presenter">Presenter 
+Pattern</a> for building rich user interfaces that will gracefully fallback to server-side templating.
 
 # Installation
 
@@ -13,20 +18,10 @@
 
      npm install viewful
      
-## Browser
-
-     <script src="/path/to/viewful.js"></script>
-
-# Usage
-
-
 ## Creating a View
 
 ``` js
 
-//
-// Require viewful in our script
-//
 var viewful = require('viewful');
 
 //
