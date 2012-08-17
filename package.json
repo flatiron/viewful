@@ -21,6 +21,7 @@
     "hogan.js": "*",
     "jazz": "*",
     "jqtpl": "*",
+    "just": "*",
     "mustache": "*",
     "qejs": "*",
     "underscore": "*",
