@@ -11,6 +11,7 @@
     "broadway": "*",
     "liquor": "*",
     "swig": "*",
+    "dot": "*",
     "dustjs-linkedin": "*",
     "eco": "*",
     "ejs": "*",
