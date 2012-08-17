@@ -15,6 +15,7 @@
     "eco": "*",
     "ejs": "*",
     "haml": "*",
+    "haml-coffee": "*",
     "jazz": "*",
     "jqtpl": "*",
     "whiskers": "*"

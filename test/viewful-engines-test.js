@@ -105,6 +105,15 @@ vows.describe('viewful-engines-test').addBatch({
       }),
       'and calling View.render(user)': helpers.renderSync(user, "<p>tobi</p>"),
       'and calling View.render(user, cb)': helpers.render(user, "<p>tobi</p>")
+    },
+
+    'a new viewful.View({ input: "haml-coffee" })': {
+      topic: new viewful.View({
+        template: "%p= @user.name",
+        input: "haml-coffee"
+      }),
+      'and calling View.render(user)': helpers.renderSync(user, "<p>tobi</p>"),
+      'and calling View.render(user, cb)': helpers.render(user, "<p>tobi</p>")
     }
 
   }
