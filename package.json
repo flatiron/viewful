@@ -16,7 +16,8 @@
     "ejs": "*",
     "haml": "*",
     "jazz": "*",
-    "jqtpl": "*"
+    "jqtpl": "*",
+    "whiskers": "*"
   },
   "optionalDependencies": {},
   "engines": {
