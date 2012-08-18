@@ -8,10 +8,13 @@ var user = { user : { name: "tobi" } };
 vows.describe('viewful-engines-test').addBatch({
   'When using `viewful`': {
     'a new viewful.View({ input: "jade" })': {
-      topic: new viewful.View({
-        template: "p= user.name",
-        input: "jade"
-      }),
+      topic: function () {
+        viewful.engines.init();
+        return new viewful.View({
+          template: "p= user.name",
+          input: "jade"
+        });
+      },
       'should return a new View': function (_view) {  
         assert.isObject(_view);
       },
