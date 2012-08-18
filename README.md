@@ -274,8 +274,6 @@ All constructor options are optional.
 
  - Add broadway plugin for every engine listed @ https://github.com/visionmedia/consolidate.js/blob/master/lib/consolidate.js
   - Remove jade engine tests except for render() test?.. all tests except render pass without jade plugin directory, they seem to test view plugin functionality instead of engine plugin functionality
-  - Remove exports.jade = function () {..} from jade engine plugin?.. seems redundant and might be legacy code from consolidate.js
-  - Add try/catch statement to surround jade.compile() in jade engine plugin?.. similar to what is done in swig engine plugin
   - Refactor to use named function expressions for attach(), init() and render() per: https://github.com/flatiron/viewful/commit/c1eaeb5c7bd47e6bcf6f2b3faf4e1f42a33bac90 However, shouldn't this be avoided since template engine plugins need to be isomorphic?
   - Dust and Jazz engine plugins only render asynchronously and need a callback param... how should we handle any attempts to use sync render() from view layer?
   - Add options as optional parameter of View.render()? Currently, template engine plugins can only be configured with options at app.attach().
