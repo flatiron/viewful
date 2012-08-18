@@ -1,11 +1,9 @@
-
 var http        = require('http'),
     viewful     = require('../lib/viewful');
 
 
 var viewfulRouter  = viewful.createRouter({
-  template: __dirname + '/../test/fixtures/views/simple/',
-  input: "html"
+  path: './examples/jade/creature'
 });
 
 //viewfulRouter.input = "html";
