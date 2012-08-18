@@ -56,10 +56,13 @@ vows.describe('viewful-engines-test').addBatch({
     },
 
     'a new viewful.View({ input: "dust" })': {
-      topic: new viewful.View({
-        template: "<p>{#user}{name}{/user}</p>",
-        input: "dust"
-      }),
+      topic: function () {
+        viewful.engines.init();
+        return new viewful.View({
+          template: "<p>{#user}{name}{/user}</p>",
+          input: "dust"
+        });
+      },
       'and calling View.render(user, cb)': helpers.render(user, "<p>tobi</p>")
     },
 
