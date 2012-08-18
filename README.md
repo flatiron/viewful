@@ -18,7 +18,7 @@ Pattern</a> for building rich user interfaces that will gracefully fallback to s
 
      npm install viewful
      
-## Creating a View
+### Views can render strings
 
 ``` js
 
@@ -29,12 +29,44 @@ var viewful = require('viewful');
 //
 var view = new viewful.View({ 
   template: "p= user.name",
-  input: "jade",
-  output: "html" 
+  input: "jade" 
 });
+
+view.render({ user: { name: "bob" }});
+
+outputs: `<p>bob</p>`
 ```
+
+
+### Views can be loaded a folder
+
+```
+   /jade/creature
+     -create.jade
+     -show.jade
+     -layout.jade
+
+```
+
+``` js
+
+var viewful = require('viewful');
+
+//
+// Create a simple view using a string of Jade
+//
+var view = new viewful.View({ 
+  path: "./examples/jade/creature
+});
+
+view.load();
+
+view.create.render({ user: { name: "bob" }});
+```
+
+
   
-A `View` has the following properties:
+## `View` Class
 
 ### view.template
 
@@ -63,6 +95,11 @@ A helper method for loading views from a file or a folder, synchronously or asyn
 ### view.present(data)
 
 `View.present` is intended to be called on the results of a template rendered with `View.render()`. In the <a href="#presenter">presenter</a>, you can bind Level 2 DOM Events (like a mouse click) to the rendered markup. In simple use-cases, you will not use this method.
+
+### view.View
+
+Views can contain abritrary nested sub-views.
+
 
 ## Loading a view from disk
 
