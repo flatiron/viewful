@@ -37,7 +37,7 @@ vows.describe('viewful-engines-test').addBatch({
         return new viewful.View({
           template: "<p>{{user.name}}</p>",
           input: "swig"
-        })
+        });
       },
       'and calling View.render(user)': helpers.renderSync(user, "<p>tobi</p>"),
       'and calling View.render(user, cb)': helpers.render(user, "<p>tobi</p>")
@@ -49,7 +49,7 @@ vows.describe('viewful-engines-test').addBatch({
         return new viewful.View({
           template: "<p>#{user.name}</p>",
           input: "liquor"
-        })
+        });
       },
       'and calling View.render(user)': helpers.renderSync(user, "<p>tobi</p>"),
       'and calling View.render(user, cb)': helpers.render(user, "<p>tobi</p>")
