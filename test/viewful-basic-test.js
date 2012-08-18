@@ -34,9 +34,11 @@ vows.describe('viewful/viewful-basic-test').addBatch({
       'should contain "render" function': function (_view) {
         assert.isFunction(_view.render);
       },
+      /*
       'should contain default "input"': function (_view) {
         assert.equal(_view.input, "plates");
       },
+      */
       'should contain default "output"': function (_view) {
         assert.equal(_view.output, "html");
       }
