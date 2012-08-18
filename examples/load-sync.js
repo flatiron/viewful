@@ -1,11 +1,9 @@
 var viewful = require('../lib/viewful');
 
 var view = new viewful.View({
-  path: "./examples/creature",
-  input: "jade",
-  output: "html"
+  path: "./examples/jade/creature"
 });
 
 view.load();
 
-console.log(view['create.jade']);
+console.log(view.create);

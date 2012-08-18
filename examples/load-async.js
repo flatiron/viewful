@@ -8,6 +8,6 @@ var view = new viewful.View({
 
 /* TODO
 view.load(function(err, result){
-  console.log(view['create.jade']);
+  console.log(view.create);
 });
 */
