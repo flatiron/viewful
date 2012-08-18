@@ -35,8 +35,8 @@ var view = new viewful.View({
 view.render({ user: { name: "bob" }});
 
 outputs: `<p>bob</p>`
-
 ```
+
 
 ### Views can be loaded a folder
 
@@ -62,7 +62,7 @@ var view = new viewful.View({
 view.load();
 
 view.create.render({ user: { name: "bob" }});
-
+```
 
 
   
