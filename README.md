@@ -1,11 +1,16 @@
 ## Unreleased / Experimental
 
-# viewful - tiny and isomorphic consolidated view engine
+# viewful - consolidated view engine for Flatiron
 
 
 # Overview
 
-`Viewful` establishes the minimal amount of convention needed to create Isomorphic JavaScript views. `Viewful` makes no assumptions about your application or templating choices. It supports *all* templating engines available for JavaScript and is completely pluggable for customization. `Viewful` also includes a basic <a href="#presenter">Presenter Pattern</a> for building rich user interfaces that will gracefully fallback to server-side templating.
+Viewful establishes the minimal amount of convention needed to create JavaScript views. Viewful makes no assumptions about your application or templating choices. 
+
+Viewful supports *all* templating engines available for JavaScript and is completely pluggable for customization. 
+
+Viewful also includes a basic <a href="#presenter">Presenter 
+Pattern</a> for building rich user interfaces that will gracefully fallback to server-side templating.
 
 # Installation
 
@@ -13,20 +18,10 @@
 
      npm install viewful
      
-## Browser
-
-     <script src="/path/to/viewful.js"></script>
-
-# Usage
-
-
-## Creating a View
+### Views can render strings
 
 ``` js
 
-//
-// Require viewful in our script
-//
 var viewful = require('viewful');
 
 //
@@ -34,12 +29,44 @@ var viewful = require('viewful');
 //
 var view = new viewful.View({ 
   template: "p= user.name",
-  input: "jade",
-  output: "html" 
+  input: "jade" 
 });
+
+view.render({ user: { name: "bob" }});
+
+outputs: `<p>bob</p>`
 ```
+
+
+### Views can be loaded a folder
+
+```
+   /jade/creature
+     -create.jade
+     -show.jade
+     -layout.jade
+
+```
+
+``` js
+
+var viewful = require('viewful');
+
+//
+// Create a simple view using a string of Jade
+//
+var view = new viewful.View({ 
+  path: "./examples/jade/creature
+});
+
+view.load();
+
+view.create.render({ user: { name: "bob" }});
+```
+
+
   
-A `View` has the following properties:
+## `View` Class
 
 ### view.template
 
@@ -68,6 +95,11 @@ A helper method for loading views from a file or a folder, synchronously or asyn
 ### view.present(data)
 
 `View.present` is intended to be called on the results of a template rendered with `View.render()`. In the <a href="#presenter">presenter</a>, you can bind Level 2 DOM Events (like a mouse click) to the rendered markup. In simple use-cases, you will not use this method.
+
+### view.View
+
+Views can contain abritrary nested sub-views.
+
 
 ## Loading a view from disk
 
@@ -241,6 +273,10 @@ All constructor options are optional.
 # TODO
 
  - Add broadway plugin for every engine listed @ https://github.com/visionmedia/consolidate.js/blob/master/lib/consolidate.js
+  - Remove jade engine tests except for render() test?.. all tests except render pass without jade plugin directory, they seem to test view plugin functionality instead of engine plugin functionality
+  - Refactor to use named function expressions for attach(), init() and render() per: https://github.com/flatiron/viewful/commit/c1eaeb5c7bd47e6bcf6f2b3faf4e1f42a33bac90 However, shouldn't this be avoided since template engine plugins need to be isomorphic?
+  - Dust and Jazz engine plugins only render asynchronously and need a callback param... how should we handle any attempts to use sync render() from view layer?
+  - Add options as optional parameter of View.render()? Currently, template engine plugins can only be configured with options at app.attach().
  - Improve core API sugar syntax
  - Create flatiron plugin based on https://github.com/flatiron/flatiron/blob/958928e8c936c7ac72c3fb88ee530b77a780e9ea/lib/flatiron/plugins/view.js
  - Better browser support
