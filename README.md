@@ -14,7 +14,7 @@
  - Seamless loading and mapping of views from a hard-disk
  - Views can be infinitely nested, i.e. subviews / uber-partials
  - Views contain a **super basic** <a href="#presenter">Presenter 
-Pattern</a> for assisting in building rich isomorprhic interfaces with gracefully no-script fallbacks
+Pattern</a> for assisting in building rich isomorprhic interfaces with graceful no-script fallbacks
 
 # Installation
 
@@ -42,7 +42,11 @@ var view = new viewful.View({
 
 view.render({ user: { name: "bob" }});
 
-outputs: `<p>bob</p>`
+```
+
+**outputs:**
+```html
+<p>bob</p>
 ```
 
 ``` js
@@ -53,42 +57,17 @@ var viewful = require('viewful');
 // Create a simple view using a string of HTML
 //
 var view = new viewful.View({ 
-  template: "<p class="name"></p>",
+  template: '<p class="name"></p>',
   input: "plates" 
 });
 
 view.render({ user: { name: "bob" }});
 
-outputs: `<p>bob</p>`
+**outputs:** 
+```html
+<p>bob</p>
 ```
-
-### Views can be loaded from folders
-
-**Note: The view will auto-detect engine based on file extension.**
-
-- jade/creature
-  - create.jade
-  - show.jade
-  - layout.jade
-
-``` js
-
-var viewful = require('viewful');
-
-//
-// Create a simple view using a string of Jade
-//
-var view = new viewful.View({ 
-  path: "./examples/jade/creature
-});
-
-view.load();
-
-view.create.render({ user: { name: "bob" }});
-```
-
-
-### Views can be loaded from folders
+### Views can be loaded from disk
 
 - jade/creature
   - create.jade
@@ -136,11 +115,13 @@ var html = view.create.render({ user: { name: "Marak" }});
 
 <a name="presenter"></a>
 ## View Presenters
-A **Presenter** can be considered a function which performs actions on an already rendered view. The presenter code is unknown to the rendered view, and the rendered view is unknown to the presenter.
+A **Presenter** can be considered a function which performs actions on an already rendered view.
 
-In simple use-cases, you will not need to write a presenter. In Level 1 DOM rendering ( such as generating server-side HTML to return to the client ), you will not use `View.present`. In most cases you'll just be generating markup and won't have to think about a writing "presenter".
+In simple use-cases, you will not need to write a presenter. In Level 1 DOM rendering ( such as generating server-side HTML to return to the client ), you will not use `View.present`. In "web-pages", you'll just be generating markup and won't have to think about a writing "presenter".
 
-In more advanced use-cases, such as creating rich user-interfaces, you will want to create a Presenter to act upon your View. This is particularly important when implementing data-binding, browser events such as mouse and keyboard, or graceful no-script comptable fallbacks.
+In more advanced use-cases, such as creating rich user-interfaces, you will want to create a Presenter to act upon your View. 
+
+Presenters are particularly important when implementing data-binding, browser events such as mouse and keyboard, or graceful no-script comptable fallbacks.
 
 
 **TL:DR;** View Presenters are more convention than actual code
@@ -160,7 +141,18 @@ In more advanced use-cases, such as creating rich user-interfaces, you will want
   <button id="thebutton">{{label}}</button>
 </div>
 ```
+```js
+var view = new viewful.View({
+  input: "swig",
+  path: "./path/to/myview"
+});
 
+// load the view
+view.load();
+
+// render the view
+view.button.render({ label: "Show Alert" });
+```
 ### button.js
 
 ```js
@@ -173,22 +165,7 @@ module.exports = function (options, callback) {
 }
 ```
 
-```js
-
-// create a new view
-var view = new viewful.View({
-  input: "swig",
-  path: "./path/to/myview"
-});
-
-// Load the view
-view.load();
-
-// Render the view
-view.button.render({ label: "Show Alert" });
-```
-
-This will render:
+**Output:**
 
 ```html
 <div>
@@ -197,7 +174,7 @@ This will render:
 ```
 
 ```js
-// Now we Present the View, triggering our event bindings
+// present the View, triggering event bindings
 view.button.present();
 ```
 
