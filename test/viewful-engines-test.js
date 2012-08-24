@@ -63,6 +63,7 @@ vows.describe('viewful-engines-test').addBatch({
           input: "dust"
         });
       },
+      'and calling View.render(user)': helpers.renderSync(user),
       'and calling View.render(user, cb)': helpers.render(user, "<p>tobi</p>")
     },
 
