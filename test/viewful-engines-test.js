@@ -15,18 +15,6 @@ vows.describe('viewful-engines-test').addBatch({
           input: "jade"
         });
       },
-      'should return a new View': function (_view) {  
-        assert.isObject(_view);
-      },
-      'should contain "render" function': function (_view) {
-        assert.isFunction(_view.render);
-      },
-      'should contain default "input"': function (_view) {
-        assert.equal("jade", _view.input);
-      },
-      'should contain default "output"': function (_view) {
-        assert.equal("html", _view.output);
-      },
       'and calling View.render(user)': helpers.renderSync(user, "<p>tobi</p>"),
       'and calling View.render(user, cb)': helpers.render(user, "<p>tobi</p>")
     },
