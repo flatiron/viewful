@@ -250,10 +250,9 @@ All constructor options are optional.
 # TODO
 
  - Add broadway plugin for every engine listed @ https://github.com/visionmedia/consolidate.js/blob/master/lib/consolidate.js
-  - Remove jade engine tests except for render() test.. all tests except render pass without jade plugin directory, they seem to test view plugin functionality instead of engine plugin functionality, use separate branch for review purposes..
+  - Add tests to verify that options are being passed into template engine render function correctly.
   - Refactor each plugin to use named function expressions for attach(), init() and render(). Ensure minification process removes names for cross-browser compatibilty.
-  - Dust and Jazz engine plugins only render asynchronously and need a callback param... how should we handle any attempts to use sync render() from view layer?
-  - Add options as optional parameter of View.render()? Currently, template engine plugins can only be configured with options at app.attach().
+  - Add options as optional parameter of View.render(). Currently, template engine plugins can only be configured with options at app.attach().
  - Improve core API sugar syntax
  - Create flatiron plugin based on https://github.com/flatiron/flatiron/blob/958928e8c936c7ac72c3fb88ee530b77a780e9ea/lib/flatiron/plugins/view.js
  - Better browser support
