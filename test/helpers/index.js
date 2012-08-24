@@ -24,7 +24,7 @@ helpers.renderSync = function (data, expected) {
         try{ _view.render(data); }
         catch (err) { this.callback(err, msg); }
       },
-      'should throw a render error': function (err, message) {
+      'should error': function (err, message) {
         assert.isObject(err);
         assert.equal(err.message, message);
       }
