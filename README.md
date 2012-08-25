@@ -6,15 +6,14 @@
 
 **Viewful establishes the minimal amount of convention needed to create JavaScript views.**
 
-*Viewful makes no assumptions about your application or templating choices*
+**Viewful makes no assumptions about your application or templating choices.**
 
 # Features
 
  - Supports [all templating engines](https://github.com/flatiron/viewful/tree/master/lib/engines) available for JavaScript
- - Seamless loading and mapping of views from a hard-disk
- - Views can be infinitely nested, i.e. subviews / uber-partials
- - Views contain a **super basic** <a href="#presenter">Presenter 
-Pattern</a> for assisting in building rich isomorprhic interfaces with graceful no-script fallbacks
+ - Seamless loading and mapping of views from the file-system or remote webserver
+ - Views can be infinitely nested, i.e. uber-partials / subviews
+ - Views contain a very basic <a href="#presenter">Presenter Pattern</a> for assisting in building rich isomorprhic interfaces with graceful no-script fallbacks ( Presenters are more convention than code )
 
 # Installation
 
