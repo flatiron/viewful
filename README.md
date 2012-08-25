@@ -4,13 +4,13 @@
 
 # Overview
 
-**Viewful establishes the minimal amount of convention needed to create JavaScript views.**
-
-**Viewful makes no assumptions about your application or templating choices.**
+ - **Viewful establishes the minimal amount of convention needed to create JavaScript views.**
+ - **Viewful makes no assumptions about your application or templating choices.**
 
 # Features
 
  - Supports [all templating engines](https://github.com/flatiron/viewful/tree/master/lib/engines) available for JavaScript
+ - Isomorphic ( views work on the browser and server )
  - Seamless loading and mapping of views from the file-system or remote webserver
  - Views can be infinitely nested, i.e. uber-partials / subviews
  - Views contain a very basic <a href="#presenter">Presenter Pattern</a> for assisting in building rich isomorprhic interfaces with graceful no-script fallbacks ( Presenters are more convention than code )
@@ -24,8 +24,10 @@
 ## Browser
 
     <script src="/path/to/cdn/viewful.js"></script>
+
+# Usage
      
-### Views can render strings
+## Views can render strings
 
 ``` js
 
@@ -44,6 +46,7 @@ view.render({ user: { name: "bob" }});
 ```
 
 **outputs:**
+
 ```html
 <p>bob</p>
 ```
@@ -61,32 +64,35 @@ var view = new viewful.View({
 });
 
 view.render({ user: { name: "bob" }});
+```
 
-**outputs:** 
+**outputs:**
+
 ```html
 <p>bob</p>
 ```
-### Views can be loaded from disk
+## Views can be loaded from disk
 
-- jade/creature
-  - create.jade
-  - show.jade
-  - layout.jade
+- jade
+  - creature
+    - create.jade
+    - show.jade
+    - layout.jade
 
 In most cases, a View will be based on a file or a folder of files. Viewful can automatically handle the process of loading template files through the `View.load` method.
 
 
-*Note: The `myview` folder consists of three files using the Jade templating language*
+*Note: The `jade` folder consists of a creature view using the Jade templating language*
 
 ```js
 var view = new viewful.View({
-  path: "./path/to/myview",
+  path: "./examples/view/jade",
   input: "jade",
   output: "html"
 });
 ```
 
-**Note: By design, a View will not automatically attempt to load template assets on construction. Templates are loaded using the `View.load` method after the View has been constructed.**
+**Important: By design, a View will not automatically attempt to load template assets on construction. Templates are loaded using the `View.load` method after the View has been constructed.**
 
 ```js
 view.load();
@@ -103,7 +109,7 @@ viewful.load(function (err, view) {
 Once the view is loaded, it can be rendered using `View.render`.
 
 ```js
-var html = view.create.render({ user: { name: "Marak" }});
+var html = view.creatures.create.render({ user: { name: "Marak" }});
 ```
 
 `html` will now contain the following string:
@@ -113,21 +119,19 @@ var html = view.create.render({ user: { name: "Marak" }});
 ```
 
 <a name="presenter"></a>
-## View Presenters
+# View Presenters
 A **Presenter** can be considered a function which performs actions on an already rendered view.
 
-In simple use-cases, you will not need to write a presenter. In Level 1 DOM rendering ( such as generating server-side HTML to return to the client ), you will not use `View.present`. In "web-pages", you'll just be generating markup and won't have to think about a writing "presenter".
+In simple use-cases, you will not need to write a presenter. In **Level 1 DOM rendering** ( such as generating server-side HTML to return to the client ), you will not use `View.present`. 
 
-In more advanced use-cases, such as creating rich user-interfaces, you will want to create a Presenter to act upon your View. 
+In "web-pages", you'll just be generating markup and won't have to think about writing a "presenter". In more advanced use-cases, such as creating rich user-interfaces, you will want to create a **Presenter to act upon your View**. 
 
-Presenters are particularly important when implementing data-binding, browser events such as mouse and keyboard, or graceful no-script comptable fallbacks.
-
-
-**TL:DR;** View Presenters are more convention than actual code
+Presenters are particularly important when implementing data-binding, browser events ( such as mouse and keyboard ), or graceful no-script compatible fallbacks for complex interfaces.
 
 
+**TL:DR; View Presenters are advantageous, but not mandatory.**
 
-**Button Alert Example:**
+## Click a Button to Alert Example
 
 - myview
  - button.html
@@ -248,7 +252,7 @@ All constructor options are optional.
 
 # TODO
 
- - Add broadway plugin for every engine listed @ https://github.com/visionmedia/consolidate.js/blob/master/lib/consolidate.js
+  - Add broadway plugin for every engine listed @ https://github.com/visionmedia/consolidate.js/blob/master/lib/consolidate.js
   - Add tests to verify that options are being passed into template engine render function correctly.
   - Refactor each plugin to use named function expressions for attach(), init() and render(). Ensure minification process removes names for cross-browser compatibilty.
   - Add options as optional parameter of View.render(). Currently, template engine plugins can only be configured with options at app.attach().
