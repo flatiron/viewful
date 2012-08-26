@@ -1,6 +1,6 @@
 ## Unreleased / Experimental
 
-# viewful - tiny and isomorphic consolidated view engine
+# viewful - tiny and consolidated view engine for JavaScript
 
 # Overview
 
@@ -10,7 +10,6 @@
 # Features
 
  - Supports [all templating engines](https://github.com/flatiron/viewful/tree/master/lib/engines) available for JavaScript
- - Isomorphic ( views work on the browser and server )
  - Seamless loading and mapping of views from the file-system or remote webserver
  - Views can be infinitely nested, i.e. uber-partials / subviews
  - Views contain a very basic <a href="#presenter">Presenter Pattern</a> for assisting in building rich isomorprhic interfaces with graceful no-script fallbacks ( Presenters are more convention than code )
@@ -20,10 +19,6 @@
 ## Node
 
     npm install viewful
-
-## Browser
-
-    <script src="/path/to/cdn/viewful.js"></script>
 
 # Usage
      
@@ -160,7 +155,7 @@ view.button.render({ label: "Show Alert" });
 
 ```js
 module.exports = function (options, callback) {
-  // Remark: We get an isomorphic querySelectorAll poly-fill for free!
+  // Remark: We get a querySelectorAll poly-fill for free!
   var $ = this.$;
   $('#thebutton').click(function(){
     alert('I am alert!');
@@ -252,11 +247,10 @@ All constructor options are optional.
 
 # TODO
 
-  - Add broadway plugin for every engine listed @ https://github.com/visionmedia/consolidate.js/blob/master/lib/consolidate.js
+  - Add isomorphic browser support
+  - Improve documentation and examples
+  - Create `viewful` Flatiron plugin
   - Add tests to verify that options are being passed into template engine render function correctly.
   - Refactor each plugin to use named function expressions for attach(), init() and render(). Ensure minification process removes names for cross-browser compatibilty.
   - Add options as optional parameter of View.render(). Currently, template engine plugins can only be configured with options at app.attach().
  - Improve core API sugar syntax
- - Create flatiron plugin based on https://github.com/flatiron/flatiron/blob/958928e8c936c7ac72c3fb88ee530b77a780e9ea/lib/flatiron/plugins/view.js
- - Better browser support
- - Better documentation and examples

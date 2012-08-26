@@ -1,8 +1,8 @@
 var viewful = require('../../lib/viewful');
 
 var view = new viewful.View({
-  path: "./examples/views/swig",
-  input: "swig"
+  path: "./examples/jade/view",
+  input: "jade"
 });
 
 view.load(function(err, result){
@@ -13,9 +13,13 @@ view.load(function(err, result){
   //
   // Remark: You could just as easily use a sync view.create.render call here too
   //
-  view.creature.inputs.button.render({ label: 'fudge'}, function(err, result){
-    console.log(result)
-    console.log(view.creature.inputs.button.present(result));
-    console.log(err, result);
+  view.creature.create.render({ user: { name: "bob", email: "bob@marak.com" }}, function(err, result){
+    console.log(err, result)
   });
+
+  view.creature.inputs.button.render({ label: 'fudge'}, function(err, result){
+    console.log(err, result)
+  });
+
+  
 });
