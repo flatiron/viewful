@@ -55,7 +55,7 @@ var viewful = require('viewful');
 //
 var view = new viewful.View({ 
   template: '<p class="name"></p>',
-  input: "plates" 
+  input: "swig"
 });
 
 view.render({ user: { name: "bob" }});
@@ -71,8 +71,9 @@ view.render({ user: { name: "bob" }});
 - jade
   - creature
     - create.jade
-    - show.jade
-    - layout.jade
+    - inputs
+      - button.jade
+      - button.js
 
 In most cases, a View will be based on a file or a folder of files. Viewful can automatically handle the process of loading template files through the `View.load` method.
 
@@ -87,7 +88,7 @@ var view = new viewful.View({
 });
 ```
 
-**Important: By design, a View will not automatically attempt to load template assets on construction. Templates are loaded using the `View.load` method after the View has been constructed.**
+**Important: By design, a View will not automatically attempt to load template assets on construction. Temswig are loaded using the `View.load` method after the View has been constructed.**
 
 ```js
 view.load();
