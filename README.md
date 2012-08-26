@@ -190,32 +190,29 @@ view.inputs.button.present();
 
 If DOM Level 2 Events are available ( such as a browser ! ), the presenter will apply the click event to the button that triggers an alert when the button is clicked.
 
-
-
-
 # API
 
-## `View` Class
+## `viewful.View` Class
 
-### view.template
+### View.template
 
 Template for the view. In this case, `p= user.name`
 
-### view.render(data)
+### View.render(data)
 
 The render method for the view. Will use `input` and `output` templating engines.
 
 *Note: Based on the templating engine, there might be several other rendering API options available, such as callbacks or streaming.*
 
-### view.load(/* callback */)
+### View.load(/* callback */)
 
 A helper method for loading views from a file or a folder, synchronously or asynchronously, on the browser or the server. `View.load` is optional if a `template` string has already been specified in the View constructor.
 
-### view.present(data)
+### View.present(data)
 
 `View.present` is intended to be called on the results of a template rendered with `View.render()`. In the <a href="#presenter">presenter</a>, you can bind Level 2 DOM Events (like a mouse click) to the rendered markup. In simple use-cases, you will not use this method.
 
-## viewful.View options
+## options
 
 ### options.path
 
