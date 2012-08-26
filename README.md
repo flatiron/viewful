@@ -161,7 +161,7 @@ var view = new viewful.View({
 view.load();
 
 // render the view
-view.button.render({ label: "Show Alert" });
+view.inputs.button.render({ label: "Show Alert" });
 ```
 ### button.js
 
@@ -175,7 +175,7 @@ module.exports = function (options, callback) {
 }
 ```
 
-**Output:**
+**outputs:**
 
 ```html
 <div>
@@ -185,12 +185,15 @@ module.exports = function (options, callback) {
 
 ```js
 // present the View, triggering event bindings
-view.button.present();
+view.inputs.button.present();
 ```
 
 If DOM Level 2 Events are available ( such as a browser ! ), the presenter will apply the click event to the button that triggers an alert when the button is clicked.
 
-Our `button.js` `Presenter` has the following methods bound into scope.
+
+
+
+# API
 
 ## `View` Class
 
@@ -202,34 +205,17 @@ Template for the view. In this case, `p= user.name`
 
 The render method for the view. Will use `input` and `output` templating engines.
 
-**Ex:** 
-```js
-view.render({user: { name: "Marak" }})
-```
-
-**Outputs:**
-```html
-<p>Marak</p>
-```
-
 *Note: Based on the templating engine, there might be several other rendering API options available, such as callbacks or streaming.*
 
-### view.load(path, /* callback */)
+### view.load(/* callback */)
 
-A helper method for loading views from a file or a folder, synchronously or asynchronously, on the browser or the server. `View.load` is optional if a `template` string has already been specified.
+A helper method for loading views from a file or a folder, synchronously or asynchronously, on the browser or the server. `View.load` is optional if a `template` string has already been specified in the View constructor.
 
 ### view.present(data)
 
 `View.present` is intended to be called on the results of a template rendered with `View.render()`. In the <a href="#presenter">presenter</a>, you can bind Level 2 DOM Events (like a mouse click) to the rendered markup. In simple use-cases, you will not use this method.
 
-### view.View
-
-Views can contain abritrary nested sub-views.
-
-
 ## viewful.View options
-
-All constructor options are optional.
 
 ### options.path
 
