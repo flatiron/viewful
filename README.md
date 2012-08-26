@@ -103,14 +103,25 @@ viewful.load(function (err, view) {
 Once the view is loaded, it can be rendered using `View.render`.
 
 ```js
-var html = view.creatures.create.render({ user: { name: "Marak" }});
+var html = view.creature.create.render({ user: { name: "Marak" }});
 ```
 
-`html` will now contain the following string:
+**outputs:**
 
 ```html
 <p>Marak</p>
 ```
+
+```js
+var html = view.creature.inputs.button.render({ label: "cool" }});
+```
+
+**outputs:**
+
+```html
+<div>
+  <button id="thebutton">cool</button>
+</div>```
 
 <a name="presenter"></a>
 # View Presenters
@@ -228,7 +239,7 @@ All constructor options are optional.
 
 ### options.input
 
- - *String* - Input templating engine. Defaults to `Plates`
+ - *String* - Input templating engine. Defaults to `HTML`
  
 ### options.output
  
