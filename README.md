@@ -66,33 +66,34 @@ view.render({ user: { name: "bob" }});
 ```
 ## Views can be loaded from disk
 
-- jade
+Assuming there a view on a hard-disk, [like this](https://github.com/flatiron/viewful/tree/master/examples/jade/view).
+
+- view
   - creature
     - create.jade
     - inputs
       - button.jade
       - button.js
 
-In most cases, a View will be based on a file or a folder of files. Viewful can automatically handle the process of loading template files through the `View.load` method.
-
-
-*Note: The `jade` folder consists of a creature view using the Jade templating language*
+Viewful can automatically handle the process of loading template files through the `View.load` method.
 
 ```js
 var view = new viewful.View({
-  path: "./examples/view/jade",
+  path: "./examples/jade/view",
   input: "jade",
   output: "html"
 });
 ```
 
-**Important: By design, a View will not automatically attempt to load template assets on construction. Templates are loaded using the `View.load` method after the View has been constructed.**
+**Important: By design, a View will not automatically attempt to load template assets on construction.** 
+
+**Templates are loaded using the `View.load` method after the View has been constructed.**
 
 ```js
 view.load();
 ```
 
-This same operation can also be performed asynchronously.
+**This same operation can also be performed asynchronously.**
 
 ```js
 viewful.load(function (err, view) {
@@ -100,7 +101,9 @@ viewful.load(function (err, view) {
 });
 ```
 
-Once the view is loaded, it can be rendered using `View.render`.
+**Once the view is loaded, it can be rendered using `View.render`.**
+
+**render**
 
 ```js
 var html = view.creature.create.render({ user: { name: "Marak" }});
@@ -112,6 +115,8 @@ var html = view.creature.create.render({ user: { name: "Marak" }});
 <p>Marak</p>
 ```
 
+**render**
+
 ```js
 var html = view.creature.inputs.button.render({ label: "cool" }});
 ```
@@ -121,7 +126,8 @@ var html = view.creature.inputs.button.render({ label: "cool" }});
 ```html
 <div>
   <button id="thebutton">cool</button>
-</div>```
+</div>
+```
 
 <a name="presenter"></a>
 # View Presenters
