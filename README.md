@@ -63,7 +63,7 @@ view.render({ user: { name: "bob" }});
 ```
 ## Views can be loaded from disk
 
-### Assuming there a view on a hard-disk, [like this](https://github.com/flatiron/viewful/tree/master/examples/jade/view)
+### Assuming there a view on the hard-disk, [like this](https://github.com/flatiron/viewful/tree/master/examples/jade/view)
 
 - view
   - creature
@@ -135,13 +135,16 @@ Presenters are particularly important when implementing data-binding, browser ev
 
 ## Presenter Example: Click a Button to trigger Alert
 
-- myview
+Assuming there a view on the hard-disk, [like this](https://github.com/flatiron/viewful/tree/master/examples/swig/view/creature/inputs)
+
+
+- inputs
  - button.html
  - button.js
 
 ### button.html
 
-*using [wwig](http://paularmstrong.github.com/swig/) for this example, but it could be any [engine](https://github.com/flatiron/viewful/tree/master/lib/engines)*
+*using [swig](http://paularmstrong.github.com/swig/) for this example, but it could be any [engine](https://github.com/flatiron/viewful/tree/master/lib/engines)*
 
 ```html
 <div>
