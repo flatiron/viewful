@@ -124,24 +124,24 @@ var html = view.creature.inputs.button.render({ label: "cool" }});
 
 <a name="presenter"></a>
 # View Presenters
-A **Presenter** can be considered a function which performs actions on an already rendered view.
+A **Presenter** can be considered a function which performs actions on a rendered **template**. In simple use-cases, you will not write a presenter.
 
-In simple use-cases, you will not need to write a presenter. In **Level 1 DOM rendering** ( such as generating server-side HTML to return to the client ), you will not use `View.present`. 
-
-In "web-pages", you'll just be generating markup and won't have to think about writing a "presenter". In more advanced use-cases, such as creating rich user-interfaces, you will want to create a **Presenter to act upon your View**. 
+In **Level 1 DOM rendering** ( such as generating server-side HTML to return to the client ), you will not use a **Presenter**. In more advanced use-cases, such as creating rich user-interfaces, you will want to create a **Presenter to act upon your View**. 
 
 Presenters are particularly important when implementing data-binding, browser events ( such as mouse and keyboard ), or graceful no-script compatible fallbacks for complex interfaces.
 
 
 **TL:DR; View Presenters are advantageous, but not mandatory.**
 
-## Click a Button to Alert Example
+## Presenter Example: Click a Button to trigger Alert
 
 - myview
  - button.html
  - button.js
 
 ### button.html
+
+*using [wwig](http://paularmstrong.github.com/swig/) for this example, but it could be any [engine](https://github.com/flatiron/viewful/tree/master/lib/engines)*
 
 ```html
 <div>
@@ -151,7 +151,7 @@ Presenters are particularly important when implementing data-binding, browser ev
 ```js
 var view = new viewful.View({
   input: "swig",
-  path: "./path/to/myview"
+  path: "./examples/jade/view/creature/inputs",
 });
 
 // load the view
