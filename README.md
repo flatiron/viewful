@@ -1,5 +1,3 @@
-## Unreleased / Experimental
-
 # viewful - tiny and consolidated view engine for JavaScript
 
 # Overview
@@ -88,7 +86,7 @@ var view = new viewful.View({
 });
 ```
 
-**Important: By design, a View will not automatically attempt to load template assets on construction. Temswig are loaded using the `View.load` method after the View has been constructed.**
+**Important: By design, a View will not automatically attempt to load template assets on construction. Templates are loaded using the `View.load` method after the View has been constructed.**
 
 ```js
 view.load();
@@ -243,8 +241,6 @@ All constructor options are optional.
 ### options.present
 
  - *Function* - Override default presenter method for View
-
-*Note: The view object will attempt to auto-detect the templating engine based on the file-extension of each template. You can over-ride these settings by an `input` and `output` option.*
 
 # TODO
 
