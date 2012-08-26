@@ -101,7 +101,7 @@ viewful.load(function (err, view) {
 });
 ```
 
-**Once the view is loaded, it can be rendered using `View.render`.**
+### Once the view is loaded, it can be rendered using `View.render`.
 
 **render**
 
