@@ -22,6 +22,8 @@
      
 ## Views can render strings
 
+### Here is a simple `viewful.View` using a string of [Jade](http://jade-lang.com/)
+
 ``` js
 
 var viewful = require('viewful');
@@ -43,6 +45,7 @@ view.render({ user: { name: "bob" }});
 ```html
 <p>bob</p>
 ```
+### Here is a simple `viewful.View` using a string of [Swig](http://paularmstrong.github.com/swig/)
 
 ``` js
 
