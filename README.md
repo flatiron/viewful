@@ -49,10 +49,10 @@ view.render({ user: { name: "bob" }});
 var viewful = require('viewful');
 
 //
-// Create a simple view using a string of HTML
+// Create a simple view using a string of swig
 //
 var view = new viewful.View({ 
-  template: '<p class="name"></p>',
+  template: '<p>{{user.name}}</p>',
   input: "swig"
 });
 
