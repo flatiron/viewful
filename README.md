@@ -28,9 +28,6 @@
 
 var viewful = require('viewful');
 
-//
-// Create a simple view using a string of Jade
-//
 var view = new viewful.View({ 
   template: "p= user.name",
   input: "jade" 
@@ -51,9 +48,6 @@ view.render({ user: { name: "bob" }});
 
 var viewful = require('viewful');
 
-//
-// Create a simple view using a string of swig
-//
 var view = new viewful.View({ 
   template: '<p>{{user.name}}</p>',
   input: "swig"
@@ -69,7 +63,7 @@ view.render({ user: { name: "bob" }});
 ```
 ## Views can be loaded from disk
 
-Assuming there a view on a hard-disk, [like this](https://github.com/flatiron/viewful/tree/master/examples/jade/view).
+### Assuming there a view on a hard-disk, [like this](https://github.com/flatiron/viewful/tree/master/examples/jade/view)
 
 - view
   - creature
@@ -90,13 +84,13 @@ var view = new viewful.View({
 
 **Important: By design, a View will not automatically attempt to load template assets on construction.** 
 
-**Templates are loaded using the `View.load` method after the View has been constructed.**
+### Templates are loaded using the `View.load` method after the View has been constructed
 
 ```js
 view.load();
 ```
 
-**This same operation can also be performed asynchronously.**
+### This same operation can also be performed asynchronously
 
 ```js
 viewful.load(function (err, view) {
@@ -105,8 +99,6 @@ viewful.load(function (err, view) {
 ```
 
 ### Once the view is loaded, it can be rendered using `View.render`.
-
-**render**
 
 ```js
 var html = view.creature.create.render({ user: { name: "Marak" }});
@@ -117,8 +109,6 @@ var html = view.creature.create.render({ user: { name: "Marak" }});
 ```html
 <p>Marak</p>
 ```
-
-**render**
 
 ```js
 var html = view.creature.inputs.button.render({ label: "cool" }});
