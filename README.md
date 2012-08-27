@@ -244,6 +244,4 @@ A helper method for loading views from a file or a folder, synchronously or asyn
   - Improve documentation and examples
   - Create `viewful` Flatiron plugin
   - Add tests to verify that options are being passed into template engine render function correctly.
-  - Refactor each plugin to use named function expressions for attach(), init() and render(). Ensure minification process removes names for cross-browser compatibilty.
   - Add options as optional parameter of View.render(). Currently, template engine plugins can only be configured with options at app.attach().
- - Improve core API sugar syntax
