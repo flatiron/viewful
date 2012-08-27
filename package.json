@@ -1,7 +1,7 @@
 {
   "author": "",
   "name": "viewful",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "dependencies": {
     "utile": "0.1.x",
     "cheerio": "0.9.x"
