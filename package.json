@@ -19,6 +19,7 @@
     "haml-coffee": "*",
     "handlebars": "*",
     "hogan.js": "*",
+    "jade": "*",
     "jazz": "*",
     "jqtpl": "*",
     "just": "*",
