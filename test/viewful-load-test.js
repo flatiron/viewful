@@ -30,10 +30,10 @@ vows.describe('viewful/viewful-load-test').addBatch({
           assert.isNotNull(result)
         }
       },
-      'viewful.load("./test/fixtures/views/simple/")' : {
+      'viewful.load("./examples/fixtures/swig/view/")' : {
         topic : function(_view){
           try {
-            var loaded = _view.load("./test/fixtures/views/simple/");
+            var loaded = _view.load("./examples/swig/view/");
             this.callback(null, loaded);
           } catch (err) {
             this.callback(err);
@@ -47,12 +47,12 @@ vows.describe('viewful/viewful-load-test').addBatch({
         },
         'and templates should be valid' : function(err, result){
           assert.isObject(result)
-          assert.isDefined(result.index.template);
-          assert.isDefined(result.bar.template);
-          assert.isDefined(result.foo.template);
-          assert.isDefined(result.bar.render);
-          assert.isDefined(result.foo.render);
-          assert.isDefined(result.bar.present);
+          assert.isDefined(result.creature.create.template);
+          assert.isDefined(result.creature.create.render);
+          assert.isDefined(result.creature.create.present);
+          assert.isDefined(result.creature.inputs.button.template);
+          assert.isDefined(result.creature.inputs.button.render);
+          assert.isDefined(result.creature.inputs.button.present);
         }
       },
       'viewful.load("./test/fixtures/views/simple/", cb)' : {
