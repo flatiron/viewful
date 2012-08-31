@@ -24,6 +24,7 @@
     "jqtpl": "*",
     "just": "*",
     "mustache": "*",
+    "plates": "*",
     "qejs": "*",
     "underscore": "*",
     "walrus": "*",

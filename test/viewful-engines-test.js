@@ -28,9 +28,16 @@ var user = { user : { name: "tobi" } }
     , 'walrus': { template: '<p>{{user.name}}</p>', syncRender: true }
     , 'whiskers': { template: '<p>{user.name}</p>', syncRender: true }
     }
+  , pEngine = {
+      'plates': { template: '<p id="user"><span id="name"></span></p>', syncRender: true }
+    }
+  , pExpected = '<p id="user"><span id="name">tobi</span></p>'
   ;
 
 vows.describe('viewful-engines-test').addBatch({
+  'When using `viewful`': helpers.generateEngineTests(pEngine, user, pExpected)
+})
+.addBatch({
   'When using `viewful`': helpers.generateEngineTests(engines, user, expected)
 }).export(module);
 
