@@ -1,7 +1,9 @@
-var helpers = exports;
-var assert = require('assert');
+var helpers = exports
+  , assert = require('assert')
+  , viewful = require('../../lib/viewful')
+  ;
 
-helpers.render = function (data, expected) {
+helpers.render = function render(data, expected) {
   expected = expected || '';
   return {
     topic: function (_view) {
@@ -14,7 +16,7 @@ helpers.render = function (data, expected) {
   }
 };
 
-helpers.renderSync = function (data, expected) {
+helpers.renderSync = function renderSync(data, expected) {
   expected = expected || '';
   if (expected === '') {
     return {
@@ -37,4 +39,25 @@ helpers.renderSync = function (data, expected) {
       }
     };
   }
+};
+
+helpers.generateEngineTests = function generateEngineTests(engines, data, expected) {
+  var context = {};
+  Object.keys(engines).forEach(function (key) {
+    var description = 'a new viewful.View({ input: "' + key + ' })'
+      , syncExpected = engines[key].syncRender ? expected : ''
+      ;
+    context[description] = {
+      topic: function () {
+        viewful.engines.init();      
+        return new viewful.View({ 
+            template: engines[key].template
+          , input: key
+        });
+      },
+      'and calling View.render(user)': helpers.renderSync(data, syncExpected),
+      'and calling View.render(user, cb)': helpers.render(data, expected)
+    };
+  });
+  return context;
 };
