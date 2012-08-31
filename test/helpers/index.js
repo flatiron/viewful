@@ -44,7 +44,7 @@ helpers.renderSync = function renderSync(data, expected) {
 helpers.generateEngineTests = function generateEngineTests(engines, data, expected) {
   var context = {};
   Object.keys(engines).forEach(function (key) {
-    var description = 'a new viewful.View({ input: "' + key + ' })'
+    var description = 'a new viewful.View({ input: "' + key + '" })'
       , syncExpected = engines[key].syncRender ? expected : ''
       ;
     context[description] = {
