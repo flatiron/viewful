@@ -15,6 +15,7 @@ var user = { user : { name: "tobi" } }
     , 'haml-coffee': { template: '%p= @user.name', syncRender: true }
     , 'handlebars': { template: '<p>{{user.name}}</p>', syncRender: true }
     , 'hogan': { template: '<p>{{user.name}}</p>', syncRender: true }
+    , 'html': { template: '<p>tobi</p>', syncRender: true }
     , 'jade': { template: 'p= user.name', syncRender: true }
     , 'jazz': { template: '<p>{user.name}</p>', syncRender: false }
     , 'jqtpl': { template: '<p>${user.name}</p>', syncRender: true }
