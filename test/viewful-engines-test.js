@@ -118,12 +118,3 @@ vows.describe('viewful-engines-test')
   .addBatch(helpers.generateEngineTests(engines, user))
   .export(module);
 
-/* TODO: remove after refactor
-vows.describe('viewful-engines-test').addBatch({
-  'A new view': helpers.generateEngineTests(pEngine, user, pExpected)
-})
-.addBatch({
-  'A new view': helpers.generateEngineTests(engines, user, expected)
-}).export(module);
-*/
-
