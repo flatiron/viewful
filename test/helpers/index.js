@@ -41,10 +41,33 @@ helpers.renderSync = function renderSync(data, expected) {
   }
 };
 
+helpers.generateEngineTests = function generateEngineTests(engines, data) {
+  var batch = {};
+  Object.keys(engines).forEach(function (key) {
+    var description = 'viewful.View({ input: "' + key + '" })'
+      , expected = engines[key].expected
+      , syncExpected = engines[key].syncRender ? expected : ''
+      ;
+    batch[description] = {
+      topic: function () {
+        viewful.engines.init();      
+        return new viewful.View({ 
+            template: engines[key].template
+          , input: key
+        });
+      },
+      'when rendering sync: View.render(data)': helpers.renderSync(data, syncExpected),
+      'when rendering async: View.render(data, cb)': helpers.render(data, expected)
+    };
+  });
+  return batch;
+};
+
+/* TODO: Remove after refactor
 helpers.generateEngineTests = function generateEngineTests(engines, data, expected) {
   var context = {};
   Object.keys(engines).forEach(function (key) {
-    var description = 'a new viewful.View({ input: "' + key + '" })'
+    var description = 'viewful.View({ input: "' + key + '" })'
       , syncExpected = engines[key].syncRender ? expected : ''
       ;
     context[description] = {
@@ -55,9 +78,10 @@ helpers.generateEngineTests = function generateEngineTests(engines, data, expect
           , input: key
         });
       },
-      'and calling View.render(user)': helpers.renderSync(data, syncExpected),
-      'and calling View.render(user, cb)': helpers.render(data, expected)
+      'when rendering sync: View.render(data)': helpers.renderSync(data, syncExpected),
+      'when rendering async: View.render(data, cb)': helpers.render(data, expected)
     };
   });
   return context;
 };
+*/
