@@ -62,3 +62,20 @@ helpers.generateEngineTests = function generateEngineTests(engines, data) {
   });
   return batch;
 };
+
+helpers.generateEngineUnitTests = function generateEngineUnitTests(engines, data) {
+  var batch = {};
+  Object.keys(engines).forEach(function (key) {
+    var description = 'The ' + key + ' plugin'
+      , expected = engines[key].expected
+      , syncExpected = engines[key].syncRender ? expected : ''
+      ;
+    batch[description] = {
+      topic: require('../../lib/engines/' + key + '/index')
+      , 'should contain an attach() method': function (plugin) {
+        assert.isFunction(plugin.attach);
+      }
+    };
+  });
+  return batch;
+};
