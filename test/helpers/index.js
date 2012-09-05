@@ -78,6 +78,15 @@ helpers.generateEngineUnitTests = function generateEngineUnitTests(engines, data
       , 'should contain an init() method': function (plugin) {
         assert.isFunction(plugin.init);
       }
+      , 'when attached': {
+        topic: function (plugin) {
+          plugin.attach();
+          return plugin;
+        }
+        , 'should contain an object of the same name': function (plugin) {
+          assert.isObject(plugin[key]);
+        }
+      }
     };
   });
   return batch;
