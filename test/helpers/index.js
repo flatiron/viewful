@@ -75,6 +75,9 @@ helpers.generateEngineUnitTests = function generateEngineUnitTests(engines, data
       , 'should contain an attach() method': function (plugin) {
         assert.isFunction(plugin.attach);
       }
+      , 'should contain an init() method': function (plugin) {
+        assert.isFunction(plugin.init);
+      }
     };
   });
   return batch;
