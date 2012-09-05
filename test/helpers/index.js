@@ -86,6 +86,9 @@ helpers.generateEngineUnitTests = function generateEngineUnitTests(engines, data
         , 'should contain an object of the same name': function (plugin) {
           assert.isObject(plugin[key]);
         }
+        , 'should contain an object of the same name with a render() method': function (plugin) {
+          assert.isFunction(plugin[key].render);
+        }
       }
     };
   });
