@@ -63,6 +63,19 @@ helpers.generateEngineTests = function generateEngineTests(engines, data) {
   return batch;
 };
 
+helpers.renderUnit = function renderUnit(mockView, data, expected) {
+  expected = expected || '';
+  return {
+    topic: function (engine) {
+      engine.render(mockView, data, this.callback);
+    },
+    'should compile expected result': function (err, result) {
+      assert.isNull(err);
+      assert.equal(result, expected);
+    }
+  }
+};
+
 helpers.renderSyncUnit = function renderSyncUnit(mockView, data, expected) {
   expected = expected || '';
   if (expected === '') {
@@ -87,45 +100,44 @@ helpers.renderSyncUnit = function renderSyncUnit(mockView, data, expected) {
   };
 };
 
-helpers.generateEngineUnitTests = function generateEngineUnitTests(engines, data) {
-  var batch = {};
-  Object.keys(engines).forEach(function (key) {
-    var description = 'The ' + key + ' plugin'
-      , expected = engines[key].expected
-      , syncExpected = engines[key].syncRender ? expected : ''
-      , mockView = { template: engines[key].template
-                   , input: key
-                   }
-      ;
-    batch[description] = {
-      topic: require('../../lib/engines/' + key + '/index')
-      , 'should contain an attach() method': function (plugin) {
-        assert.isFunction(plugin.attach);
+helpers.generateEngineUnitBatch = function generateEngineUnitBatch(engineMap, key, data) {
+  var batch = {}
+    , description = 'The ' + key + ' plugin'
+    , expected = engineMap.expected
+    , syncExpected = engineMap.syncRender ? expected : ''
+    , mockView = { template: engineMap.template
+                 , input: key
+                 }
+    ;
+  batch[description] = {
+    topic: require('../../lib/engines/' + key + '/index')
+    , 'should contain an attach() method': function (plugin) {
+      assert.isFunction(plugin.attach);
+    }
+    , 'should contain an init() method': function (plugin) {
+      assert.isFunction(plugin.init);
+    }
+    , 'when attached': {
+      topic: function (plugin) {
+        plugin.attach();
+        return plugin;
       }
-      , 'should contain an init() method': function (plugin) {
-        assert.isFunction(plugin.init);
+      , 'should contain an object of the same name': function (plugin) {
+        assert.isObject(plugin[key]);
       }
-      , 'when attached': {
-        topic: function (plugin) {
-          plugin.attach();
-          return plugin;
-        }
-        , 'should contain an object of the same name': function (plugin) {
-          assert.isObject(plugin[key]);
-        }
-        , 'should contain an object of the same name with a render() method': function (plugin) {
-          assert.isFunction(plugin[key].render);
-        }
+      , 'should contain an object of the same name with a render() method': function (plugin) {
+        assert.isFunction(plugin[key].render);
       }
-      , 'when attached and initialized': {
-        topic: function (plugin) {
-          plugin.attach();
-          plugin.init(function (err) { if (err) console.dir(err); });
-          return plugin[key];
-        }
-        , 'and rendering sync': helpers.renderSyncUnit(mockView, data, syncExpected)
+    }
+    , 'when attached and initialized': {
+      topic: function (plugin) {
+        plugin.attach();
+        plugin.init(function (err) { if (err) console.dir(err); });
+        return plugin[key];
       }
-    };
-  });
+      , 'and rendering sync': helpers.renderSyncUnit(mockView, data, syncExpected)
+      , 'and rendering async': helpers.renderUnit(mockView, data, expected)
+    }
+  };
   return batch;
 };
