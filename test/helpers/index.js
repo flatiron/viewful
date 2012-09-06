@@ -63,12 +63,39 @@ helpers.generateEngineTests = function generateEngineTests(engines, data) {
   return batch;
 };
 
+helpers.renderSyncUnit = function renderSyncUnit(mockView, data, expected) {
+  expected = expected || '';
+  if (expected === '') {
+    return {
+      topic: function (engine) {
+        var msg = mockView.input
+                + ' template engine cannot render synchronously';
+        try { engine.render(mockView, data); }
+        catch (err) { this.callback(err, msg); }
+      }
+      , 'should error': function (err, message) {
+        assert.isObject(err);
+        assert.equal(err.message, message);
+      }
+    };
+  }
+  return {
+    topic: function (engine) { return engine.render(mockView, data); }
+    , 'should compile expected result': function (html) {
+      assert.equal(html, expected);
+    }
+  };
+};
+
 helpers.generateEngineUnitTests = function generateEngineUnitTests(engines, data) {
   var batch = {};
   Object.keys(engines).forEach(function (key) {
     var description = 'The ' + key + ' plugin'
       , expected = engines[key].expected
       , syncExpected = engines[key].syncRender ? expected : ''
+      , mockView = { template: engines[key].template
+                   , input: key
+                   }
       ;
     batch[description] = {
       topic: require('../../lib/engines/' + key + '/index')
@@ -89,6 +116,14 @@ helpers.generateEngineUnitTests = function generateEngineUnitTests(engines, data
         , 'should contain an object of the same name with a render() method': function (plugin) {
           assert.isFunction(plugin[key].render);
         }
+      }
+      , 'when attached and initialized': {
+        topic: function (plugin) {
+          plugin.attach();
+          plugin.init(function (err) { if (err) console.dir(err); });
+          return plugin[key];
+        }
+        , 'and rendering sync': helpers.renderSyncUnit(mockView, data, syncExpected)
       }
     };
   });
