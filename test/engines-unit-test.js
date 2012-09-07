@@ -6,10 +6,10 @@ var assert = require('assert')
   , engines = mappings.engines
   ;
 
-var suite = vows.describe('engines-unit-test');
-
 Object.keys(engines).forEach(function (key) {
-  suite.addBatch(helpers.generateEngineUnitBatch(engines[key], key, data));
+  var description = 'engine-unit-test::' + key;
+  exports[key] = vows.describe(description).addBatch(
+    helpers.generateEngineUnitBatch(engines[key], key, data)
+  );
 });
 
-suite.export(module);
