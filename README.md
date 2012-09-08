@@ -154,7 +154,7 @@ Assuming there a view on the hard-disk, [like this](https://github.com/flatiron/
 ```js
 var view = new viewful.View({
   input: "swig",
-  path: "./examples/jade/view/creature/inputs",
+  path: "./examples/jade/view/creature",
 });
 
 // load the view
