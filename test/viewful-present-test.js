@@ -17,6 +17,9 @@ vows.describe('viewful/viewful-present-test').addBatch({
       , 'should contain a button object': function (view) {
         assert.isObject(view.button);
       }
+      , 'should contain a present() method': function (view) {
+        assert.isFunction(view.button.present);
+      }
     }
   }
 }).export(module);
