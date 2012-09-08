@@ -7,7 +7,7 @@ vows.describe('viewful/viewful-present-test').addBatch({
   'A new, complex viewful.View(), containing a "button" template,': {
     topic: new viewful.View({
         input: 'swig'
-      , path: './test/fixtures/views/swig/creature/inputs'
+      , path: './test/fixtures/views/swig/creature'
     })
     , 'when loaded': {
       topic: function (view) {
@@ -15,10 +15,10 @@ vows.describe('viewful/viewful-present-test').addBatch({
         return view;
       }
       , 'should contain a button object': function (view) {
-        assert.isObject(view.button);
+        assert.isObject(view.inputs.button);
       }
       , 'should contain a present() method': function (view) {
-        assert.isFunction(view.button.present);
+        assert.isFunction(view.inputs.button.present);
       }
     }
   }
