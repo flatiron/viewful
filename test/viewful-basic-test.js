@@ -9,7 +9,7 @@ vows.describe('viewful/viewful-basic-test').addBatch({
     'the viewful api': {
       topic: viewful,
       'should require without error': function (result) {
-        assert(true, true);
+        assert.ok(result);
       },
       'should contain a top-level View class': function (_viewful) {
         assert.isFunction(_viewful.View);
