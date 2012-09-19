@@ -39,10 +39,6 @@ vows.describe('viewful/viewful-basic-test').addBatch({
       'should contain default "output"': function (_view) {
         assert.equal(_view.output, "html");
       }
-      /*
-      'and calling View.compile()':                 helpers.compile(),
-      'and calling View.compile(["p", user.name])': helpers.compile({ title : "hello!" }, null, null, "<h1>marak</h1>"),
-      */
     }
   }
 }).export(module);
