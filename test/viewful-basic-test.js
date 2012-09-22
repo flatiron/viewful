@@ -9,9 +9,8 @@ vows.describe('viewful/viewful-basic-test').addBatch({
     'the viewful api': {
       topic: viewful,
       'should require without error': function (result) {
-        assert(true, true);
+        assert.ok(result);
       },
-      topic: viewful,
       'should contain a top-level View class': function (_viewful) {
         assert.isFunction(_viewful.View);
       },
@@ -34,18 +33,12 @@ vows.describe('viewful/viewful-basic-test').addBatch({
       'should contain "render" function': function (_view) {
         assert.isFunction(_view.render);
       },
-      /*
       'should contain default "input"': function (_view) {
-        assert.equal(_view.input, "plates");
+        assert.equal(_view.input, 'html');
       },
-      */
       'should contain default "output"': function (_view) {
         assert.equal(_view.output, "html");
       }
-      /*
-      'and calling View.compile()':                 helpers.compile(),
-      'and calling View.compile(["p", user.name])': helpers.compile({ title : "hello!" }, null, null, "<h1>marak</h1>"),
-      */
     }
   }
 }).export(module);
