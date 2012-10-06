@@ -21,11 +21,11 @@ vows.describe('viewful/viewful-basic-test').addBatch({
         assert.isFunction(_viewful.engines['plates'].render);
       },
       'should be able to create a new View instance': function (_viewful) {
-        assert.isObject(new _viewful.View());
+        assert.isObject(_viewful.factory());
       }
     },
     'a new viewful.View() with default options': {
-      topic: new viewful.View(),
+      topic: viewful.factory(),
       'should return a new View': function (_view) {
         assert.isObject(_view);
       },
