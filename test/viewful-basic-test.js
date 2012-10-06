@@ -3,7 +3,6 @@ var assert = require('assert'),
     helpers = require('./helpers'),
     viewful = require('../lib/viewful');
 
-
 vows.describe('viewful/viewful-basic-test').addBatch({
   'When using `viewful`': {
     'the viewful api': {
@@ -42,4 +41,3 @@ vows.describe('viewful/viewful-basic-test').addBatch({
     }
   }
 }).export(module);
-

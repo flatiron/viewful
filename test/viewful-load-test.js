@@ -13,11 +13,9 @@ vows.describe('viewful/viewful-load-test').addBatch({
       'should contain "load" function': function (_view) {
         assert.isFunction(_view.load);
       },
-      /*
-      'should contain default "input"': function (_view) {
-        assert.equal(_view.input, "plates");
-      },
-      */
+      //'should contain default "input"': function (_view) {
+      //  assert.equal(_view.input, "plates");
+      //},
       'should contain default "output"': function (_view) {
         assert.equal(_view.output, "html");
       },
@@ -78,4 +76,3 @@ vows.describe('viewful/viewful-load-test').addBatch({
     }
   }
 }).export(module);
-
