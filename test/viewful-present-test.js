@@ -8,8 +8,8 @@ var assert = require('assert')
   ;
 
 vows.describe('viewful/viewful-present-test').addBatch({
-  'A new, complex viewful.View(), containing a "button" template,': {
-    topic: new viewful.View({
+  'A new, complex view, containing a "button" template,': {
+    topic: viewful.factory({
         input: 'swig'
       , path: './test/fixtures/views/swig/creature'
     })
