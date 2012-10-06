@@ -9,8 +9,8 @@ vows.describe('viewful-test').addBatch({
     'should require without error': function (result) {
       assert.ok(result);
     },
-    'should contain a top-level View class': function (_viewful) {
-      assert.isFunction(_viewful.View);
+    'should contain a factory() method': function (_viewful) {
+      assert.isFunction(_viewful.factory);
     },
     'should contain engines': function (_viewful) {
       assert.isObject(_viewful.engines);
