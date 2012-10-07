@@ -41,17 +41,17 @@ helpers.renderSync = function renderSync(data, expected) {
   }
 };
 
-helpers.generateEngineTests = function generateEngineTests(engines, data) {
+helpers.generateRenderTests = function generateRenderTests(engines, data) {
   var batch = {};
   Object.keys(engines).forEach(function (key) {
-    var description = 'A new viewful.View({ input: "' + key + '" })'
+    var description = 'A new View({ input: "' + key + '" })'
       , expected = engines[key].expected
       , syncExpected = engines[key].syncRender ? expected : ''
       ;
     batch[description] = {
       topic: function () {
         viewful.engines.init();      
-        return new viewful.View({ 
+        return viewful.factory({ 
             template: engines[key].template
           , input: key
         });

@@ -7,7 +7,7 @@ var assert = require('assert')
   , engines = mappings.engines
   ;
 
-vows.describe('viewful-engines-test')
-  .addBatch(helpers.generateEngineTests(engines, data))
+vows.describe('engines-integration-test')
+  .addBatch(helpers.generateRenderTests(engines, data))
   .export(module);
 
