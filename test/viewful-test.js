@@ -1,8 +1,8 @@
-var assert = require('assert')
-  , vows = require('vows')
+var assert  = require('assert')
+  , vows    = require('vows')
   , helpers = require('./helpers')
   , viewful = require('../lib/viewful')
-  , View = require('../lib/View')
+  , View    = require('../lib/view')
   ;
 
 vows.describe('viewful-test').addBatch({
