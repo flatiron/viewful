@@ -9,18 +9,22 @@ vows.describe('viewful-test').addBatch({
     'should require without error': function (result) {
       assert.ok(result);
     },
+    'should accept plugins': function (_viewful) {
+      assert.isFunction(_viewful.use);
+      assert.isFunction(_viewful.init);
+    },
+    'should contain an engines property that accepts plugins': function (_viewful) {
+      assert.includes(_viewful, 'engines');
+      assert.isObject(_viewful.engines);
+      assert.isFunction(_viewful.engines.use);
+      assert.isFunction(_viewful.engines.init);
+    },
+    'should contain default html engine': function (_viewful) {
+      assert.isObject(_viewful.engines['html']);
+      assert.isFunction(_viewful.engines['html'].render);
+    },
     'should contain a factory() method': function (_viewful) {
       assert.isFunction(_viewful.factory);
-    },
-    'should contain engines': function (_viewful) {
-      assert.isObject(_viewful.engines);
-    },
-    'should have loaded plates engine': function (_viewful) {
-      assert.isObject(_viewful.engines['plates']);
-      assert.isFunction(_viewful.engines['plates'].render);
-    },
-    'should be able to create a new View instance': function (_viewful) {
-      assert.isObject(_viewful.factory());
     }
   },
 
