@@ -1,5 +1,6 @@
 var helpers = exports
   , assert = require('assert')
+  , path = require('path')
   , viewful = require('../../lib/viewful')
   ;
 
@@ -47,10 +48,18 @@ helpers.generateRenderTests = function generateRenderTests(engines, data) {
     var description = 'A new View({ input: "' + key + '" })'
       , expected = engines[key].expected
       , syncExpected = engines[key].syncRender ? expected : ''
+      , engineRequire = engines[key].engineRequire || key
+      , pluginRequire = path.join(__dirname, '..', '..', 'lib', 'engines', key)
       ;
     batch[description] = {
       topic: function () {
-        viewful.engines.init();      
+        var engine, enginePlugin;
+        if (key !== 'html') {
+          engine = require(engineRequire);
+          enginePlugin = require(pluginRequire);
+          viewful.engines.use(enginePlugin, { engine: engine });
+          viewful.engines.init();
+        }
         return viewful.factory({ 
             template: engines[key].template
           , input: key
