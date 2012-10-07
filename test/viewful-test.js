@@ -1,7 +1,9 @@
-var assert = require('assert'),
-    vows = require('vows'),
-    helpers = require('./helpers'),
-    viewful = require('../lib/viewful');
+var assert = require('assert')
+  , vows = require('vows')
+  , helpers = require('./helpers')
+  , viewful = require('../lib/viewful')
+  , View = require('../lib/View')
+  ;
 
 vows.describe('viewful-test').addBatch({
   'viewful': {
@@ -34,19 +36,14 @@ vows.describe('viewful-test').addBatch({
     }
   },
 
-  'a new viewful.View() with default options': {
+  'viewful.factory(), with no options parameter': {
     topic: viewful.factory(),
-    'should return a new View': function (_view) {
+    'should return a new view object': function (_view) {
       assert.isObject(_view);
+      assert.instanceOf(_view, View);
     },
-    'should contain "render" function': function (_view) {
-      assert.isFunction(_view.render);
-    },
-    'should contain default "input"': function (_view) {
+    'should return a view with an html input engine': function (_view) {
       assert.equal(_view.input, 'html');
-    },
-    'should contain default "output"': function (_view) {
-      assert.equal(_view.output, "html");
     }
   }
 }).export(module);
