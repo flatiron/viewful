@@ -13,11 +13,8 @@ vows.describe('viewful-test').addBatch({
       assert.isFunction(_viewful.use);
       assert.isFunction(_viewful.init);
     },
-    'should contain an engines property that accepts plugins': function (_viewful) {
+    'should contain an engines property': function (_viewful) {
       assert.includes(_viewful, 'engines');
-      assert.isObject(_viewful.engines);
-      assert.isFunction(_viewful.engines.use);
-      assert.isFunction(_viewful.engines.init);
     },
     'should contain default html engine': function (_viewful) {
       assert.isObject(_viewful.engines['html']);
@@ -25,6 +22,15 @@ vows.describe('viewful-test').addBatch({
     },
     'should contain a factory() method': function (_viewful) {
       assert.isFunction(_viewful.factory);
+    }
+  },
+
+  'viewful.engines': {
+    topic: viewful.engines,
+    'should accept plugins': function (engines) {
+      assert.isObject(engines);
+      assert.isFunction(engines.use);
+      assert.isFunction(engines.init);
     }
   },
 
