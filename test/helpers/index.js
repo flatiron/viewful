@@ -72,38 +72,43 @@ helpers.generateRenderTests = function generateRenderTests(engines, data) {
   return batch;
 };
 
-helpers.renderUnit = function renderUnit(mockView, data, expected) {
+helpers.renderUnit = function renderUnit(mockView, key, data, expected) {
   expected = expected || '';
   return {
-    topic: function (engine) {
-      engine.render(mockView, data, this.callback);
+    topic: function (result) {
+      var plugin = result[key];
+      plugin.render(mockView, data, this.callback);
     },
-    'should compile expected result': function (err, result) {
+    'renders expected result': function (err, result) {
       assert.isNull(err);
       assert.equal(result, expected);
     }
   }
 };
 
-helpers.renderSyncUnit = function renderSyncUnit(mockView, data, expected) {
+helpers.renderSyncUnit = function renderSyncUnit(mockView, key, data, expected) {
   expected = expected || '';
   if (expected === '') {
     return {
-      topic: function (engine) {
-        var msg = mockView.input
+      topic: function (result) {
+        var plugin = result[key]
+          , msg = mockView.input
                 + ' template engine cannot render synchronously';
-        try { engine.render(mockView, data); }
+        try { plugin.render(mockView, data); }
         catch (err) { this.callback(err, msg); }
       }
-      , 'should error': function (err, message) {
+      , 'throws an error': function (err, message) {
         assert.isObject(err);
         assert.equal(err.message, message);
       }
     };
   }
   return {
-    topic: function (engine) { return engine.render(mockView, data); }
-    , 'should compile expected result': function (html) {
+    topic: function (result) { 
+      var plugin = result[key];
+      return plugin.render(mockView, data); 
+    }
+    , 'renders expected result': function (html) {
       assert.equal(html, expected);
     }
   };
@@ -114,38 +119,36 @@ helpers.generateEngineUnitBatch = function generateEngineUnitBatch(engineMap, ke
     , description = 'The ' + key + ' plugin'
     , expected = engineMap.expected
     , syncExpected = engineMap.syncRender ? expected : ''
+    , engineRequire = engineMap.engineRequire || key
     , mockView = { template: engineMap.template
                  , input: key
                  }
     ;
   batch[description] = {
     topic: require('../../lib/engines/' + key + '/index')
-    , 'should contain an attach() method': function (plugin) {
+    , 'contains an attach() method': function (plugin) {
       assert.isFunction(plugin.attach);
     }
-    , 'should contain an init() method': function (plugin) {
+    , 'contains an init() method': function (plugin) {
       assert.isFunction(plugin.init);
     }
-    , 'when attached': {
+    , 'when attached, with an engine option': {
       topic: function (plugin) {
-        plugin.attach();
-        return plugin;
+        var engine = require(engineRequire);
+        if (key === 'html') {
+          return plugin.attach();
+        } else {
+          return plugin.attach({ engine: engine });
+        }
       }
-      , 'should contain an object of the same name': function (plugin) {
-        assert.isObject(plugin[key]);
+      , 'returns an object containing the plugin object': function (result) {
+        assert.isObject(result[key]);
       }
-      , 'should contain an object of the same name with a render() method': function (plugin) {
-        assert.isFunction(plugin[key].render);
+      , 'the plugin object contains a render method': function (result) {
+        assert.isFunction(result[key].render);
       }
-    }
-    , 'when attached and initialized': {
-      topic: function (plugin) {
-        plugin.attach();
-        plugin.init(function (err) { if (err) console.dir(err); });
-        return plugin[key];
-      }
-      , 'and rendering sync': helpers.renderSyncUnit(mockView, data, syncExpected)
-      , 'and rendering async': helpers.renderUnit(mockView, data, expected)
+      , 'and rendering synchronously': helpers.renderSyncUnit(mockView, key, data, syncExpected)
+      , 'and rendering asynchronously': helpers.renderUnit(mockView, key, data, expected)
     }
   };
   return batch;
