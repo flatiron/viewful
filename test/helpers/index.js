@@ -119,7 +119,6 @@ helpers.generateEngineUnitBatch = function generateEngineUnitBatch(engineMap, ke
     , description = 'The ' + key + ' plugin'
     , expected = engineMap.expected
     , syncExpected = engineMap.syncRender ? expected : ''
-    , engineRequire = engineMap.engineRequire || key
     , mockView = { template: engineMap.template
                  , input: key
                  }
@@ -132,13 +131,12 @@ helpers.generateEngineUnitBatch = function generateEngineUnitBatch(engineMap, ke
     , 'contains an init() method': function (plugin) {
       assert.isFunction(plugin.init);
     }
-    , 'when attached, with an engine option': {
+    , 'when attached': {
       topic: function (plugin) {
-        var engine = require(engineRequire);
         if (key === 'html') {
           return plugin.attach();
         } else {
-          return plugin.attach({ engine: engine });
+          return plugin.attach();
         }
       }
       , 'returns an object containing the plugin object': function (result) {
