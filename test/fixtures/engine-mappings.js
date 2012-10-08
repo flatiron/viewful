@@ -12,7 +12,6 @@ mappings.engines = {
       template: '<p>{#user}{name}{/user}</p>'
     , expected: '<p>tobi</p>'
     , syncRender: false
-    , engineRequire: 'dustjs-linkedin'
   }
   , 'eco': { 
       template: '<p><%= @user.name %></p>'
