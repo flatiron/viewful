@@ -55,6 +55,7 @@ helpers.generateRenderTests = function generateRenderTests(engines, data) {
         if (key !== 'html') {
           viewful.use(viewful.engines[key]);
         }
+        viewful.init();
         return viewful.createView({ 
             template: engines[key].template
           , input: key
@@ -135,6 +136,13 @@ helpers.generateEngineUnitBatch = function generateEngineUnitBatch(engineMap, ke
       }
       , 'the plugin object contains a render method': function (result) {
         assert.isFunction(result[key].render);
+      }
+    }
+    , 'when attached and initialized': {
+      topic: function (plugin) {
+        plugin.attach();
+        plugin.init(function (err) { if (err) { console.log(err);} });
+        return plugin;
       }
       , 'and rendering synchronously': helpers.renderSyncUnit(mockView, key, data, syncExpected)
       , 'and rendering asynchronously': helpers.renderUnit(mockView, key, data, expected)
