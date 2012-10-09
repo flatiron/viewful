@@ -5,8 +5,8 @@ var assert = require('assert'),
 
 vows.describe('viewful/viewful-load-test').addBatch({
   'When using `viewful`': {
-    'calling viewful.factory()': {
-      topic: viewful.factory(),
+    'calling viewful.createView()': {
+      topic: viewful.createView(),
       'should return a new View': function (_view) {  
         assert.isObject(_view);
       },

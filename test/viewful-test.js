@@ -22,8 +22,8 @@ vows.describe('viewful-test').addBatch({
       assert.isObject(_viewful.engines['html']);
       assert.isFunction(_viewful.engines['html'].render);
     },
-    'should contain a factory() method': function (_viewful) {
-      assert.isFunction(_viewful.factory);
+    'should contain a createView() method': function (_viewful) {
+      assert.isFunction(_viewful.createView);
     }
   },
 
@@ -36,8 +36,8 @@ vows.describe('viewful-test').addBatch({
     }
   },
 
-  'viewful.factory(), with no options parameter': {
-    topic: viewful.factory(),
+  'viewful.createView(), with no options parameter': {
+    topic: viewful.createView(),
     'should return a new view object': function (_view) {
       assert.isObject(_view);
       assert.instanceOf(_view, View);

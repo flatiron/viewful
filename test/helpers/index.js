@@ -55,7 +55,7 @@ helpers.generateRenderTests = function generateRenderTests(engines, data) {
         if (key !== 'html') {
           viewful.use(viewful.engines[key]);
         }
-        return viewful.factory({ 
+        return viewful.createView({ 
             template: engines[key].template
           , input: key
         });
