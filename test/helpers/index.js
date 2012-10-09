@@ -128,11 +128,7 @@ helpers.generateEngineUnitBatch = function generateEngineUnitBatch(engineMap, ke
     }
     , 'when attached': {
       topic: function (plugin) {
-        if (key === 'html') {
-          return plugin.attach();
-        } else {
-          return plugin.attach();
-        }
+        return plugin.attach();
       }
       , 'returns an object containing the plugin object': function (result) {
         assert.isObject(result[key]);
