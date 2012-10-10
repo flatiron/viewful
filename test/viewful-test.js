@@ -19,8 +19,8 @@ vows.describe('viewful-test').addBatch({
       assert.includes(_viewful, 'engines');
     },
     'should contain default html engine': function (_viewful) {
-      assert.isObject(_viewful.engines['html']);
-      assert.isFunction(_viewful.engines['html'].render);
+      assert.isObject(_viewful['html']);
+      assert.isFunction(_viewful['html'].render);
     },
     'should contain a createView() method': function (_viewful) {
       assert.isFunction(_viewful.createView);
@@ -29,10 +29,13 @@ vows.describe('viewful-test').addBatch({
 
   'viewful.engines': {
     topic: viewful.engines,
-    'should accept plugins': function (engines) {
+    'should contain lazy-loaded engines': function (engines) {
       assert.isObject(engines);
-      assert.isFunction(engines.use);
-      assert.isFunction(engines.init);
+      // TODO: Figure out a way to test/verify that viewful.engines
+      // have been lazy-loaded. Use test setup/tear down?
+      //console.log(engines);
+      assert.isFunction(engines.html);
+      assert.equal(typeof engines.html, 'Getter');
     }
   },
 
