@@ -9,7 +9,7 @@ var assert = require('assert')
 Object.keys(engines).forEach(function (key) {
   var description = 'engines-unit-test::' + key;
   exports[key] = vows.describe(description).addBatch(
-    helpers.generateEngineUnitBatch(engines[key], key, data)
+    helpers.createEngineUnitBatch(engines[key], key, data)
   );
 });
 

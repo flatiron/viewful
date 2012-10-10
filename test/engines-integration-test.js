@@ -7,7 +7,9 @@ var assert = require('assert')
   , engines = mappings.engines
   ;
 
-vows.describe('engines-integration-test')
-  .addBatch(helpers.generateRenderTests(engines, data))
-  .export(module);
-
+Object.keys(engines).forEach(function (key) {
+  var description = 'engines-integration-test::' + key;
+  exports[key] = vows.describe(description).addBatch(
+    helpers.createEngineIntegrationBatch(engines[key], key, data)
+  );
+});

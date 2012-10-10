@@ -10,7 +10,7 @@ helpers.render = function render(data, expected) {
     topic: function (_view) {
       _view.render(data, this.callback);
     },
-    'should compile expected result': function (err, result) {
+    'renders expected result': function (err, result) {
       assert.isNull(err);
       assert.equal(result, expected);
     }
@@ -27,7 +27,7 @@ helpers.renderSync = function renderSync(data, expected) {
         try{ _view.render(data); }
         catch (err) { this.callback(err, msg); }
       },
-      'should error': function (err, message) {
+      'throws an error': function (err, message) {
         assert.isObject(err);
         assert.equal(err.message, message);
       }
@@ -35,36 +35,36 @@ helpers.renderSync = function renderSync(data, expected) {
   } else {
     return {
       topic: function (view) { return view; },
-      'should compile expected result': function (_view) {
+      'renders expected result': function (_view) {
         assert.equal(_view.render(data), expected);
       }
     };
   }
 };
 
-helpers.generateRenderTests = function generateRenderTests(engines, data) {
-  var batch = {};
-  Object.keys(engines).forEach(function (key) {
-    var description = 'A new View({ input: "' + key + '" })'
-      , expected = engines[key].expected
-      , syncExpected = engines[key].syncRender ? expected : ''
-      , pluginRequire = path.join(__dirname, '..', '..', 'lib', 'engines', key)
-      ;
-    batch[description] = {
-      topic: function () {
-        if (key !== 'html') {
-          viewful.use(viewful.engines[key]);
-        }
-        viewful.init();
-        return viewful.createView({ 
-            template: engines[key].template
-          , input: key
-        });
-      },
-      'when rendering sync: View.render(data)': helpers.renderSync(data, syncExpected),
-      'when rendering async: View.render(data, cb)': helpers.render(data, expected)
-    };
-  });
+helpers.createEngineIntegrationBatch = function createEngineIntegrationBatch(engineMap, key, data) {
+  var batch = {}
+    , description = 'A new View({ input: "' + key + '" })'
+    , engine = viewful.engines[key]
+    , template = engineMap.template
+    , expected = engineMap.expected
+    , syncExpected = engineMap.syncRender ? expected : ''
+    , pluginRequire = path.join(__dirname, '..', '..', 'lib', 'engines', key)
+    ;
+  batch[description] = {
+    topic: function () {
+      if (key !== 'html') {
+        viewful.use(engine);
+      }
+      viewful.init();
+      return viewful.createView({ 
+          template: template
+        , input: key
+      });
+    },
+    'when rendering sync: View.render(data)': helpers.renderSync(data, syncExpected),
+    'when rendering async: View.render(data, cb)': helpers.render(data, expected)
+  };
   return batch;
 };
 
@@ -109,15 +109,12 @@ helpers.renderSyncUnit = function renderSyncUnit(template, key, data, expected) 
   };
 };
 
-helpers.generateEngineUnitBatch = function generateEngineUnitBatch(engineMap, key, data) {
+helpers.createEngineUnitBatch = function createEngineUnitBatch(engineMap, key, data) {
   var batch = {}
     , description = 'The ' + key + ' plugin'
     , expected = engineMap.expected
     , syncExpected = engineMap.syncRender ? expected : ''
     , template = engineMap.template
-    //, mockView = { template: engineMap.template
-    //             , input: key
-    //             }
     ;
   batch[description] = {
     topic: require('../../lib/engines/' + key + '/index')
