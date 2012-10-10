@@ -68,12 +68,12 @@ helpers.generateRenderTests = function generateRenderTests(engines, data) {
   return batch;
 };
 
-helpers.renderUnit = function renderUnit(mockView, key, data, expected) {
+helpers.renderUnit = function renderUnit(template, key, data, expected) {
   expected = expected || '';
   return {
     topic: function (result) {
       var plugin = result[key];
-      plugin.render(mockView, data, this.callback);
+      plugin.render(template, data, this.callback);
     },
     'renders expected result': function (err, result) {
       assert.isNull(err);
@@ -82,15 +82,14 @@ helpers.renderUnit = function renderUnit(mockView, key, data, expected) {
   }
 };
 
-helpers.renderSyncUnit = function renderSyncUnit(mockView, key, data, expected) {
+helpers.renderSyncUnit = function renderSyncUnit(template, key, data, expected) {
   expected = expected || '';
   if (expected === '') {
     return {
       topic: function (result) {
         var plugin = result[key]
-          , msg = mockView.input
-                + ' template engine cannot render synchronously';
-        try { plugin.render(mockView, data); }
+          , msg = key + ' template engine cannot render synchronously';
+        try { plugin.render(template, data); }
         catch (err) { this.callback(err, msg); }
       }
       , 'throws an error': function (err, message) {
@@ -102,7 +101,7 @@ helpers.renderSyncUnit = function renderSyncUnit(mockView, key, data, expected) 
   return {
     topic: function (result) { 
       var plugin = result[key];
-      return plugin.render(mockView, data); 
+      return plugin.render(template, data); 
     }
     , 'renders expected result': function (html) {
       assert.equal(html, expected);
@@ -115,9 +114,10 @@ helpers.generateEngineUnitBatch = function generateEngineUnitBatch(engineMap, ke
     , description = 'The ' + key + ' plugin'
     , expected = engineMap.expected
     , syncExpected = engineMap.syncRender ? expected : ''
-    , mockView = { template: engineMap.template
-                 , input: key
-                 }
+    , template = engineMap.template
+    //, mockView = { template: engineMap.template
+    //             , input: key
+    //             }
     ;
   batch[description] = {
     topic: require('../../lib/engines/' + key + '/index')
@@ -144,8 +144,8 @@ helpers.generateEngineUnitBatch = function generateEngineUnitBatch(engineMap, ke
         plugin.init(function (err) { if (err) { console.log(err);} });
         return plugin;
       }
-      , 'and rendering synchronously': helpers.renderSyncUnit(mockView, key, data, syncExpected)
-      , 'and rendering asynchronously': helpers.renderUnit(mockView, key, data, expected)
+      , 'and rendering synchronously': helpers.renderSyncUnit(template, key, data, syncExpected)
+      , 'and rendering asynchronously': helpers.renderUnit(template, key, data, expected)
     }
   };
   return batch;
