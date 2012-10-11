@@ -56,7 +56,7 @@ helpers.createEngineIntegrationBatch = function createEngineIntegrationBatch(eng
       if (key !== 'html') {
         viewful.use(engine);
       }
-      viewful.init();
+      viewful.init(function (err) { if (err) { return console.log(err); } });
       return viewful.createView({ 
           template: template
         , input: key
@@ -133,6 +133,14 @@ helpers.createEngineUnitBatch = function createEngineUnitBatch(engineMap, key, d
       }
       , 'the plugin object contains a render method': function (result) {
         assert.isFunction(result[key].render);
+      }
+    }
+    , 'when initialized': {
+      topic: function (plugin) {
+        plugin.init(this.callback);
+      }
+      , 'has "required" the template engine without error': function (err) {
+        assert.isUndefined(err);
       }
     }
     , 'when attached and initialized': {
