@@ -34,8 +34,9 @@ vows.describe('viewful-test').addBatch({
       // TODO: Figure out a way to test/verify that viewful.engines
       // have been lazy-loaded. Use test setup/tear down?
       //console.log(engines);
-      assert.isFunction(engines.html);
-      assert.equal(typeof engines.html, 'Getter');
+      //assert.isFunction(engines.html);
+      assert.isTrue(!!Object.getOwnPropertyDescriptor(engines, 'dot').get);
+      assert.isTrue(!!Object.getOwnPropertyDescriptor(engines, 'whiskers').get);
     }
   },
 

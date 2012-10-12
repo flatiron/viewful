@@ -1,8 +1,29 @@
 var helpers = exports
   , assert = require('assert')
   , path = require('path')
-  , viewful = require('../../lib/viewful')
+  , dependencies = {}
   ;
+
+// TODO: figure out why this approach, with a teardown() method isn't working
+// to remove the engines from memory for testing lazy loading of template
+// engine plugins
+// Add test dependencies, allows for dependencies cleanup/removal on teardown()
+dependencies.viewful = require('../../lib/viewful');  
+//console.log(dependencies.viewful.engines);
+
+helpers.teardown = function teardown(key) {
+  return {
+    'test teardown': {
+      topic: function () {
+        return delete dependencies.viewful.engines[key];
+      },
+      'deletes the engine plugin from test memory': function (result) {
+        assert.isTrue(result);
+        assert.isUndefined(dependencies.viewful.engines[key]);
+      }
+    }
+  };
+};
 
 helpers.render = function render(data, expected) {
   expected = expected || '';
@@ -45,6 +66,7 @@ helpers.renderSync = function renderSync(data, expected) {
 helpers.createEngineIntegrationBatch = function createEngineIntegrationBatch(engineMap, key, data) {
   var batch = {}
     , description = 'A new View({ input: "' + key + '" })'
+    , viewful = dependencies.viewful
     , engine = viewful.engines[key]
     , template = engineMap.template
     , expected = engineMap.expected
