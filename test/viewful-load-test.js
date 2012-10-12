@@ -7,16 +7,16 @@ vows.describe('viewful/viewful-load-test').addBatch({
   'When using `viewful`': {
     'calling viewful.createView()': {
       topic: viewful.createView(),
-      'should return a new View': function (_view) {  
+      'returns a new View': function (_view) {  
         assert.isObject(_view);
       },
-      'should contain "load" function': function (_view) {
+      'contains "load" function': function (_view) {
         assert.isFunction(_view.load);
       },
-      //'should contain default "input"': function (_view) {
-      //  assert.equal(_view.input, "plates");
-      //},
-      'should contain default "output"': function (_view) {
+      'contains default "input"': function (_view) {
+        assert.equal(_view.input, 'html');
+      },
+      'contains default "output"': function (_view) {
         assert.equal(_view.output, "html");
       },
       'viewful.load("/invalid/path/to")' : {
@@ -24,7 +24,7 @@ vows.describe('viewful/viewful-load-test').addBatch({
           var loaded = _view.load("/invalid/path/to");
           this.callback(loaded);
         },
-        'should error' : function(result){
+        'throws an error' : function(result){
           assert.isNotNull(result)
         }
       },
@@ -37,13 +37,13 @@ vows.describe('viewful/viewful-load-test').addBatch({
             this.callback(err);
           }
         },
-        'should not error' : function(err, result){
+        'does not error' : function(err, result){
           assert.isNull(err)
         },
-        'should return loaded templates' : function(err, result){
+        'returns loaded templates' : function(err, result){
           assert.isObject(result)
         },
-        'and templates should be valid' : function(err, result){
+        'returns valid templates' : function(err, result){
           assert.isObject(result)
           assert.isDefined(result.creature.create.template);
           assert.isDefined(result.creature.create.render);
@@ -57,13 +57,13 @@ vows.describe('viewful/viewful-load-test').addBatch({
         topic : function(_view){
           _view.load("./test/fixtures/views/simple/", this.callback);
         },
-        'should not error' : function(err, result){
+        'does not error' : function(err, result){
           assert.isNull(err)
         },
-        'should return loaded templates' : function(err, result){
+        'returns loaded templates' : function(err, result){
           assert.isObject(result)
         },
-        'and templates should be valid' : function(err, result){
+        'returns valid templates' : function(err, result){
           assert.isObject(result)
           assert.isDefined(result.index.template);
           assert.isDefined(result.bar.template);
